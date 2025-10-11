@@ -1,0 +1,194 @@
+:root{
+    --bg:#f7fafc;
+    --card:#fff;
+    --accent:#2b6cb0;
+    --muted:#6b7280;
+    --border:#0713f5;
+}
+body{
+    font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+    background:var(--bg);
+    margin:0;
+    padding:24px;
+    color:#0f172a;
+}
+.container{
+    max-width:1100px;
+    margin:0 auto;
+}
+header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:24px;
+}
+header img{
+    height:50px;
+}
+h1{
+    margin:0;
+    font-size:1.5rem;
+}
+.muted{
+    color:var(--muted);
+    font-size:0.85rem;
+}
+.card{
+    background:var(--card);
+    padding:16px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom:24px;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+    gap:12px;
+}
+.fullwidth{
+    grid-column:1/-1;
+}
+.grid input[type="text"],
+.grid input[type="number"],
+.grid input[type="datetime-local"],
+textarea{
+    width:100%;
+    padding:6px 8px;
+    border:1px solid var(--border);
+    border: radius 20px;
+    box-sizing:border-box;
+    border-radius: 10px;  
+}
+textarea{
+    width:100%;
+    min-height:80px;
+}
+.checkboxes label{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.9rem;
+    
+    /* --- Borde y Relleno --- */
+    border:none;
+    padding: 6px 10px;               
+    border-radius: 6px;              
+    margin-bottom: 8px;              
+    
+    /* 1. Opción: Color de fondo gris muy claro */
+    /* background-color: #f0f0f0; */ 
+    
+    /* 2. Opción: Color de fondo blanco (si necesitas forzarlo) */
+    background-color: rgba(100, 200, 256);
+    margin-top:16px;
+    display:flex;
+    gap:8px;
+}
+button{
+    padding:8px 16px;
+    border:none;
+    border-radius:6px;
+    background:var(--accent);
+    color:#fbfcfc;
+    cursor:pointer;
+}
+button.secondary{
+    background:#ccc;
+    color:#000;
+}
+
+/* Tabla */
+.table-wrap{
+    overflow-x:auto;
+}
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th,td{
+    border:1px solid var(--border);
+    padding:6px 8px;
+    text-align:left;
+}
+
+/* MODAL FIRMA */
+#signatureModal{
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.4);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+#signatureModal.active{
+    display:flex;
+}
+#signatureBox{
+    background:var(--card);
+    padding:24px;
+    border-radius:25px;
+    width:360px;
+    max-width:90%;
+    text-align:center;
+    position:relative;
+}
+#signatureBox canvas{
+    border:1px solid var(--border);
+    margin:12px 0;
+    border-radius:6px;
+}
+.signature-actions{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+/* Agrega este bloque al final de tu styles.css */
+hr {
+    border: none; /* Elimina el borde 3D predeterminado del navegador */
+    height: 1px; /* Define el grosor de la línea */
+    background-color: var(--border); /* Usa el gris claro de tu variable --border */
+    margin: 16px 0; /* Espaciado arriba y abajo para separarlo de las secciones */
+}
+.section-header {
+    /* Agrega un poco de espacio debajo del encabezado para separarlo de los campos */
+    margin-bottom: 12px; 
+    
+    /* Hace que el texto sea un poco más grande y usa negrita para destacarlo */
+    font-size: 1.1rem;
+    font-weight: 600; 
+    
+    /* Asegura que el texto y el texto 'muted' a su lado estén alineados */
+    display: flex;
+    justify-content: space-between; /* Mueve el texto 'muted' al extremo derecho */
+    align-items: center;
+}
+
+/* Opcional: Estilo para el número de sección */
+.section-header strong {
+    color: var(--accent); /* Podrías usar el color azul de tu formulario */
+}
+/* Para el nombre del ingeniero/especialista */
+#name_esp {
+    border: 1px solid rgb(5, 29, 250); /* Borde verde de 2px */
+    border-radius: 5cqi;      /* Puedes añadir un radio si lo deseas */
+    margin-left:5px;
+}
+
+/* Para el nombre del cliente/usuario */
+#name_cus {
+    border: 1px solid rgb(5, 29, 250); /* Borde de guiones (dashed) y naranja */
+    border-radius: 5px;  
+    margin-left:5px;
+}
+/* Este selector asume la anidación: .grid > * > .mediciones > div > input */
+.grid .mediciones > div input[type="number"] {
+    /* Mantenemos el ancho para 5-6 dígitos */
+    width: 60px; 
+    box-sizing: border-box; 
+    padding: 2px 5px; 
+    
+    /* Nota: Si esto no funciona, prueba añadir !important TEMPORALMENTE 
+       al final de la línea 'width' para confirmar que el problema es la especificidad. */
+}
