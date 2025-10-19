@@ -33,7 +33,7 @@ function generateFolio(){
     const now = new Date();
     const y = now.getFullYear(), m = String(now.getMonth()+1).padStart(2,'0'), d = String(now.getDate()).padStart(2,'0');
     const h = String(now.getHours()).padStart(2,'0'), min = String(now.getMinutes()).padStart(2,'0');
-    return `StartReport-${company}-${y}${m}${d}-${h}${min}`;
+    return `PreventiveReport-${company}-${y}${m}${d}-${h}${min}`;
 }
 
 /// ======================
@@ -172,7 +172,7 @@ document.getElementById('exportBtn').addEventListener('click', ()=>{
     const ws = XLSX.utils.json_to_sheet(records);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Registro_de_arranques.xlsx');
+    XLSX.writeFile(wb, 'Registro_de_Mttos._preventivos.xlsx');
 });
 
 // ======================
