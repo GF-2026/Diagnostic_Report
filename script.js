@@ -172,7 +172,7 @@ document.getElementById('exportBtn').addEventListener('click', ()=>{
     const ws = XLSX.utils.json_to_sheet(records);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Registro_de_Mttos._preventivos.xlsx');
+    XLSX.writeFile(wb, 'Registro_de_arranques.xlsx');
 });
 
 // ======================
@@ -277,12 +277,3 @@ canvas.addEventListener('touchmove', e => {
     ctx.lineTo(touch.x, touch.y);
     ctx.stroke();
 }, false);
-const seccion = document.getElementById('section-headerx');
-
-if (seccion) {
-  // Para ocultarla
-  seccion.style.display = 'none';
-  
-  // Para volver a mostrarla más tarde (por ejemplo, al hacer clic en un botón)
-  // seccion.style.display = 'block'; 
-}
