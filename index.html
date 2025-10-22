@@ -66,8 +66,7 @@
             <h6> Si detectas fallas antes de iniciar el servicio, toma evidencia.</h6>
             <div><label>Si el equipo no puede operar, explica porqué:<br></label><input type="text" id="if_not_work"></div>
             <div><label>Anota el número de parte a cambiar:<br></label><input type="text" id="part_change"></div>
-            </div>
-            
+            </div>            
             <h6>Ubicar elemento a cambiar en el diagrama y adjuntar foto en el correo.</h6>
          <hr>
 <!-- 6– Diagnóstico -->        
@@ -79,8 +78,7 @@
              <div class="grid">
                 <div><label>Hora de fin de labores en el equipo:*<br></strong></label><input type="time" id="fin_work"></div>
             </div>
-        
-            <!-- 7 – Pruebas -->
+<!-- 7 – Pruebas -->
             <hr>
             <div class="section-header"><strong>7 – Pruebas</strong></div>
             <div class="grid">
@@ -95,27 +93,24 @@
                 <label><input type="checkbox" id="cold_test">Prueba de enfriamiento (soak 30 min)</label>
                 <div><label>Duración (min):</label><input type="text" id="pulldown"></div>
             </div>
-
-            <!-- 8 – Observaciones -->
+<!-- 8 – Observaciones -->
             <hr>
             <div class="section-header"><strong>8 – Observaciones del cliente</strong></div>
             <textarea id="notes"></textarea>
-
-            <!-- 9 – Firma de especialista -->
+<!-- 9 – Firma de especialista -->
             <hr>
             <div class="section-header"><strong>9 – Firma de especialista</strong></div>
             <div><label>Nombre de Especialista</label><input type="text" id="name_esp"></div>
             <button type="button" id="openSignatureEsp">Firma de Especialista</button>
             <canvas id="signaturePreviewEsp" width="300" height="150"></canvas>
-
-            <!-- 10 – Firma de cliente -->
+<!-- 10 – Firma de cliente -->
             <hr>
             <div class="section-header"><strong>10 – Firma de cliente</strong></div>
             <div><label>Nombre de Cliente</label><input type="text" id="name_cus"></div>
             <button type="button" id="openSignatureCus">Firma de Cliente</button>
             <canvas id="signaturePreviewCus" width="300" height="150"></canvas>
             <hr>
-            <!-- Acciones -->
+<!-- Acciones -->
             <div class="form-actions">
                 <button type="button" id="saveBtn">Guardar registro</button>
                 <button type="button" id="clearBtn" class="secondary">Limpiar formulario</button>
@@ -123,8 +118,7 @@
                 <button type="button" id="deleteAllBtn" class="secondary">Borrar registros</button>
             </div>
         </form>
-
-        <!-- Tabla de registros -->
+<!-- Tabla de registros -->
         <div class="card">
             <div class="section-header"><strong>Registros capturados</strong></div>
             <div class="table-wrap">
@@ -137,8 +131,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal de firma -->
+<!-- Modal de firma -->
     <div id="signatureModal">
         <div id="signatureBox">
             <h3>Firma manuscrita</h3>
@@ -150,8 +143,6 @@
             </div>
         </div>
     </div>
-
     <script src="script.js"></script>
 </body>
-
 </html>
