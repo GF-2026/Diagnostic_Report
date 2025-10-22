@@ -3,7 +3,7 @@
 // ======================
 let records = JSON.parse(localStorage.getItem('records') || '[]');
 let currentSignatureTarget = null; // 'esp' o 'cus'
-const enableDeleteButton = false;   // true = activo, false = desactivado
+const enableDeleteButton = true;   // true = activo, false = desactivado
 const storageKey = 'records';
 
 // ======================
@@ -33,7 +33,7 @@ function generateFolio(){
     const now = new Date();
     const y = now.getFullYear(), m = String(now.getMonth()+1).padStart(2,'0'), d = String(now.getDate()).padStart(2,'0');
     const h = String(now.getHours()).padStart(2,'0'), min = String(now.getMinutes()).padStart(2,'0');
-    return `Diag_Report-${company}-${y}${m}${d}-${h}${min}`;
+    return `MP_Report-${company}-${y}${m}${d}-${h}${min}`;
 }
 
 /// ======================
@@ -277,3 +277,20 @@ canvas.addEventListener('touchmove', e => {
     ctx.lineTo(touch.x, touch.y);
     ctx.stroke();
 }, false);
+const seccion = document.getElementById('section-headerx');
+
+if (seccion) {
+  // Para ocultarla
+  seccion.style.display = 'none';
+  
+  // Para volver a mostrarla más tarde (por ejemplo, al hacer clic en un botón)
+  // seccion.style.display = 'block'; 
+}
+// Sección de semáforos
+function setEstado(num, color) {
+  const colores = ['roja', 'amarilla', 'verde'];
+  colores.forEach(c => {
+    document.getElementById(c + num).classList.remove('activa');
+  });
+  document.getElementById(color + num).classList.add('activa');
+}
