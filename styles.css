@@ -192,3 +192,63 @@ hr {
     /* Nota: Si esto no funciona, prueba añadir !important TEMPORALMENTE 
        al final de la línea 'width' para confirmar que el problema es la especificidad. */
 }
+  .contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: sans-serif;
+  }
+
+  .seccion {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    text-align: center;
+    background: #f9f9f9;
+  }
+
+  .titulo {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .semaforo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+    background: #333;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px #0006 inset;
+  }
+
+  .luz {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 5px 0;
+    background-color: #222;
+    opacity: 0.3;
+    transition: 0.3s;
+  }
+
+  .luz.activa {
+    opacity: 1;
+    box-shadow: 0 0 15px 5px currentColor;
+  }
+
+  .roja { color: red; background-color: red; }
+  .amarilla { color: yellow; background-color: yellow; }
+  .verde { color: limegreen; background-color: limegreen; }
+
+  .botones {
+    margin-top: 8px;
+  }
+
+  .botones button {
+    margin: 2px;
+    padding: 4px 8px;
+  }
