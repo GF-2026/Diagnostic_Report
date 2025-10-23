@@ -134,16 +134,38 @@ function renderTable(){
     const body = document.getElementById('tableBody');
     body.innerHTML = '';
     
-    const columns = [
-        'folio', 'OT', 'datetime', 'company', 'engineer', 'city', 'description', 
-        'status', 'temperature', 'humidity',
-        
-        'static_ls', 'static_hs',
-        'resistance_hs', 'resistance_ls', 'resistance_circ', 'resistance_heat', 'resistance_hum',
-        'voltaje_hs', 'voltaje_ls', 'to_ground',
-        'current_hs', 'current_ls', 'current_circ', 'current_heat', 'current_hum',
-        'pressures_hs', 'pressures_ls'
-    ];
+const columns = [
+    'folio',
+    'OT',
+    'datetime',
+    'company',
+    'engineer',
+    'phone',
+    'city',
+    'description',
+    'brand',
+    'model',
+    'serial',
+    'controlnum',
+    'status',
+    'ubication',
+    'temperature',
+    'humidity',
+    'marking',
+    'voltage_plate',
+    'shock_free',
+    'pallets',
+    'unpack',
+    'supplies_installed',
+    'specs_available',
+    'refrigerant',
+    'manuals',
+    'notes',
+    'name_esp',
+    'name_cus',
+    'signatureEsp',
+    'signatureCus'
+];
     
     head.innerHTML = columns.map(c => `<th>${c.toUpperCase().replace(/_/g, ' ')}</th>`).join('');
     
