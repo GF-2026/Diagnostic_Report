@@ -9,19 +9,20 @@ const storageKey = 'records';
 // ======================
 // AUXILIARES
 // ======================
-function get(id) {
-  const el = document.getElementById(id);
-  return el ? el.value.trim() : '';
-}
-function chk(id) {
-  const el = document.getElementById(id);
-  return el && el.checked ? 'Sí' : 'No';
-}
+function get(id){ return document.getElementById(id).value.trim(); }
+function chk(id){ return document.getElementById(id).checked ? 'Sí' : 'No'; }
+
+/**
+ * Función auxiliar segura para obtener el dataURL de un elemento canvas.
+ * Evita que el script falle si el elemento no se encuentra o no es un canvas.
+ */
 function getSignatureData(id) {
-  const canvasElement = document.getElementById(id);
-  return canvasElement && canvasElement.tagName === 'CANVAS'
-    ? canvasElement.toDataURL()
-    : '';
+    const canvasElement = document.getElementById(id);
+    // Verifica que el elemento exista y sea un CANVAS antes de llamar a toDataURL()
+    if (canvasElement && canvasElement.tagName === 'CANVAS') {
+        return canvasElement.toDataURL();
+    }
+    return ''; // Devuelve cadena vacía si falla
 }
 
 // ======================
@@ -97,79 +98,180 @@ function generateFolio() {
     alert('✅ Registro guardado correctamente');
   });
 
-  // LIMPIAR FORMULARIO
-  document.getElementById('clearBtn').addEventListener('click', ()=>{
+// ======================
+// LIMPIAR FORMULARIO
+// ======================
+document.getElementById('clearBtn').addEventListener('click', ()=>{
     document.getElementById('reportForm').reset();
-    // Lógica mejorada para limpiar los canvas
-    ['signaturePreviewEsp','signaturePreviewCus'].forEach(id=>{
-      const canvas = document.getElementById(id);
-      const ctx = canvas?.getContext('2d');
-      if(ctx && canvas) {
-        // Limpia usando las dimensiones reales del canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      }
-    });
-  });
-
-  // EXPORTAR EXCEL
-  document.getElementById('exportBtn').addEventListener('click', ()=>{
-    if(!records.length) return alert('No hay registros para exportar.');
-    const ws = XLSX.utils.json_to_sheet(records);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Registro_de_arranques.xlsx');
-  });
-
-  // BORRAR REGISTROS
-  const deleteBtn = document.getElementById('deleteAllBtn');
-  deleteBtn.style.display = enableDeleteButton ? 'inline-block' : 'none';
-  deleteBtn.onclick = ()=>{
-    if(!enableDeleteButton) return;
-    if(confirm('¿Borrar todos los registros guardados?')){
-      localStorage.removeItem(storageKey);
-      records=[];
-      renderTable();
-    }
-  };
-
-  // RENDER TABLA
-  renderTable();
-  
-  // *** INICIALIZAR CANVAS DE FIRMAS ***
-  // Esto activa la lógica de dibujo en ambos canvas
-  initializeSignaturePad('signaturePreviewEsp');
-  initializeSignaturePad('signaturePreviewCus');
-  
-}); // <-- FIN DEL DOMContentLoaded
+    
+    // Los clearRect deben estar dentro de un chequeo de existencia si los ID no son seguros
+    const espCtx = document.getElementById('signaturePreviewEsp')?.getContext('2d');
+    const cusCtx = document.getElementById('signaturePreviewCus')?.getContext('2d');
+    if (espCtx) espCtx.clearRect(0,0,300,150);
+    if (cusCtx) cusCtx.clearRect(0,0,300,150);
+});
 
 // ======================
 // RENDER TABLA
 // ======================
 function renderTable(){
-  const head=document.getElementById('tableHead');
-  const body=document.getElementById('tableBody');
-  body.innerHTML='';
-
-  const columns=[
+    const head = document.getElementById('tableHead');
+    const body = document.getElementById('tableBody');
+    body.innerHTML = '';
+    
+    const columns = [
     'folio','OT','datetime','company','engineer','phone','city','description',
     'brand','model','serial','controlnum','status','ubication','temperature','humidity',
     'marking','voltage_plate','shock_free','pallets','unpack','supplies_installed',
     'specs_available','refrigerant','manuals','notes','name_esp','name_cus','signatureEsp','signatureCus'
   ];
+    
+    head.innerHTML = columns.map(c => `<th>${c.toUpperCase().replace(/_/g, ' ')}</th>`).join('');
+    
+    records.forEach(r => {
+        const row = `<tr>${columns.map(c => {
+            let data = r[c] || '';
+            
+            if (Array.isArray(data)) {
+                data = data.filter(val => val !== null && val !== undefined).join('<br>');
+            }
+            
+            return `<td>${data}</td>`;
+        }).join('')}</tr>`;
+        
+        body.insertAdjacentHTML('beforeend', row);
+    });
+}
 
-  head.innerHTML = columns.map(c=>`<th>${c.toUpperCase().replace(/_/g,' ')}</th>`).join('');
+renderTable();
 
-  records.forEach(r=>{
-    const row = `<tr>${columns.map(c=>{
-      let data = r[c] || '';
-      // Si es una firma (URL Base64), mostramos una imagen pequeña
-      if ((c === 'signatureEsp' || c === 'signatureCus') && data.startsWith('data:image')) {
-        data = `<img src="${data}" alt="Firma" width="100" style="border:1px solid #ccc;">`;
-      } else if (Array.isArray(data)) {
-        data=data.filter(v=>v).join('<br>');
-      }
-      return `<td>${data}</td>`;
-    }).join('')}</tr>`;
-    body.insertAdjacentHTML('beforeend', row);
-  });
+// ======================
+// EXPORTAR EXCEL
+// ======================
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+    if(!records.length) return alert('No hay registros para exportar.');
+    const ws = XLSX.utils.json_to_sheet(records);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
+    XLSX.writeFile(wb, 'Registro_de_arranques.xlsx');
+});
+
+// ======================
+// BORRAR REGISTROS
+// ======================
+const deleteBtn = document.getElementById('deleteAllBtn');
+deleteBtn.style.display = enableDeleteButton?'inline-block':'none';
+deleteBtn.onclick = ()=>{
+    if(!enableDeleteButton) return;
+    if(confirm('¿Borrar todos los registros guardados?')){
+        localStorage.removeItem(storageKey);
+        records=[];
+        renderTable();
+    }
+}
+
+// ======================
+// FIRMA
+// ======================
+const modal = document.getElementById('signatureModal');
+const canvas = document.getElementById('signatureCanvas');
+const ctx = canvas.getContext('2d');
+let drawing = false;
+
+function openSignature(target){
+    currentSignatureTarget = target;
+    modal.classList.add('active');
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+}
+
+document.getElementById('openSignatureEsp').addEventListener('click',()=>openSignature('esp'));
+document.getElementById('openSignatureCus').addEventListener('click',()=>openSignature('cus'));
+
+document.getElementById('closeSignature').addEventListener('click',()=>modal.classList.remove('active'));
+document.getElementById('clearSignature').addEventListener('click',()=>ctx.clearRect(0,0,canvas.width,canvas.height));
+document.getElementById('saveSignature').addEventListener('click',()=>{
+    const dataURL = canvas.toDataURL();
+    let preview = currentSignatureTarget==='esp'?document.getElementById('signaturePreviewEsp'):document.getElementById('signaturePreviewCus');
+    // Se agrega una verificación si 'preview' existe antes de obtener el contexto
+    if (!preview) {
+        console.error("No se encontró el canvas de vista previa para la firma.");
+        modal.classList.remove('active');
+        return;
+    }
+    
+    const pctx = preview.getContext('2d');
+    const img = new Image();
+    img.onload = ()=>{pctx.clearRect(0,0,300,150); pctx.drawImage(img,0,0,300,150)};
+    img.src = dataURL;
+    modal.classList.remove('active');
+});
+
+// ======================
+// DIBUJO CANVAS
+// ======================
+const getTouchPos = (canvasDom, touchEvent) => {
+    const rect = canvasDom.getBoundingClientRect();
+    // Obtiene la posición del primer toque (touch) y ajusta por el scroll y la posición del canvas
+    return {
+        x: touchEvent.touches[0].clientX - rect.left,
+        y: touchEvent.touches[0].clientY - rect.top
+    };
+};
+
+// Eventos del Mouse
+canvas.addEventListener('mousedown', e => {
+    e.preventDefault();
+    drawing = true; 
+    ctx.beginPath(); 
+    ctx.moveTo(e.offsetX, e.offsetY);
+});
+
+canvas.addEventListener('mouseup', () => { drawing = false; });
+canvas.addEventListener('mouseout', () => { drawing = false; });
+canvas.addEventListener('mousemove', e => {
+    if (!drawing) return; 
+    ctx.lineWidth = 2; 
+    ctx.lineCap = 'round'; 
+    ctx.strokeStyle = '#000'; 
+    ctx.lineTo(e.offsetX, e.offsetY); 
+    ctx.stroke();
+});
+
+// Eventos Táctiles (para móviles)
+canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    drawing = true;
+    const touch = getTouchPos(canvas, e);
+    ctx.beginPath();
+    ctx.moveTo(touch.x, touch.y);
+}, false);
+
+canvas.addEventListener('touchend', () => { drawing = false; });
+
+canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!drawing) return;
+    const touch = getTouchPos(canvas, e);
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#000';
+    ctx.lineTo(touch.x, touch.y);
+    ctx.stroke();
+}, false);
+
+// Sección de semáforos
+function setEstado(num, color) {
+  const colores = ['roja', 'amarilla', 'verde'];
+  colores.forEach(c => {
+    document.getElementById(c + num).classList.remove('activa');
+  });
+  document.getElementById(color + num).classList.add('activa');
+}
+// Sección de semáforos
+function setEstado(num, color) {
+  const colores = ['roja', 'amarilla', 'verde'];
+  colores.forEach(c => {
+    document.getElementById(c + num).classList.remove('activa');
+  });
+  document.getElementById(color + num).classList.add('activa');
 }
