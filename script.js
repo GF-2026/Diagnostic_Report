@@ -54,46 +54,37 @@ document.getElementById('saveBtn').addEventListener('click', () => {
     engineer: get('engineer'),
     phone: get('phone'),
     city: get('city'),
+    
     description: get('description'),
     brand: get('brand'),
     model: get('model'),
     serial: get('serial'),
     controlnum: get('controlnum'),
-    status: get('status'),
+    status_test: get('status_test'),
+    
     ubication: get('ubication'),
     temperature: get('temperature'),
     humidity: get('humidity'),
-    marking: chk('marking'),
-    voltage_plate: chk('voltage_plate'),
-    shock_free: chk('shock_free'),
-    pallets: chk('pallets'),
-    unpack: chk('unpack'),
-    supplies_installed: chk('supplies_installed'),
-    specs_available: chk('specs_available'),
-    refrigerant: chk('refrigerant'),
-    manuals: chk('manuals'),
+
+    info_fail:
+    status:
+    if_not_work:
+    part_change:
+
+    heat_target:
+    heat_test: chk
+    temp_high:
+    cold_test:
+    get_time_target:
+    pulldown:
+
+    semaforos
+
     notes: get('notes'),
     name_esp: get('name_esp'),
     name_cus: get('name_cus'),
     signatureEsp: getSignatureData('signaturePreviewEsp'),
     signatureCus: getSignatureData('signaturePreviewCus'),
-    static_ls: [get('static_ls')],
-    static_hs: [get('static_hs')],
-    resistance_hs: [get('resistance_hs_1'), get('resistance_hs_2'), get('resistance_hs_3')],
-    resistance_ls: [get('resistance_ls_1'), get('resistance_ls_2'), get('resistance_ls_3')],
-    resistance_circ: [get('resistance_circ_1'), get('resistance_circ_2'), get('resistance_circ_3')],
-    resistance_heat: [get('resistance_heat_1'), get('resistance_heat_2'), get('resistance_heat_3')],
-    resistance_hum: [get('resistance_hum_1'), get('resistance_hum_2'), get('resistance_hum_3')],
-    voltaje_hs: [get('voltaje_hs_1'), get('voltaje_hs_2'), get('voltaje_hs_3')],
-    voltaje_ls: [get('voltaje_ls_1'), get('voltaje_ls_2'), get('voltaje_ls_3')],
-    to_ground: [get('to_ground')],
-    current_hs: [get('current_hs_1'), get('current_hs_2'), get('current_hs_3')],
-    current_ls: [get('current_ls_1'), get('current_ls_2'), get('current_ls_3')],
-    current_circ: [get('current_circ_1'), get('current_circ_2'), get('current_circ_3')],
-    current_heat: [get('current_heat_1'), get('current_heat_2'), get('current_heat_3')],
-    current_hum: [get('current_hum_1'), get('current_hum_2'), get('current_hum_3')],
-    pressures_hs: [get('pressures_hs_1'), get('pressures_hs_2')],
-    pressures_ls: [get('pressures_ls_1'), get('pressures_ls_2')]
   };
 
   records.push(record);
@@ -124,10 +115,10 @@ function renderTable() {
 
   const columns = [
     'folio', 'OT', 'datetime', 'company', 'engineer', 'phone', 'city', 'description',
-    'brand', 'model', 'serial', 'controlnum', 'status', 'ubication', 'temperature', 'humidity',
-    'marking', 'voltage_plate', 'shock_free', 'pallets', 'unpack', 'supplies_installed',
-    'specs_available', 'refrigerant', 'manuals', 'notes', 'name_esp', 'name_cus',
-    'signatureEsp', 'signatureCus'
+    'brand', 'model', 'serial', 'controlnum', 'status_test', 'ubication', 'temperature', 'humidity',
+    'info_fail', 'status', 'if_not_work', 'part_change', 'act_work', 'ini_work', 'fin_work', 'heat_from',
+    'heat_target', 'heat_test', 'hum_low', 'hum_high', 'hum_test', 'temp_high', 'temp_low', 'cold_test',
+    'get_time_target', 'pulldown','notes', 'name_esp', 'name_cus', 'signatureEsp', 'signatureCus'
   ];
 
   head.innerHTML = columns.map(c => `<th>${c.toUpperCase().replace(/_/g, ' ')}</th>`).join('');
