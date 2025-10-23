@@ -2,46 +2,41 @@
 // VARIABLES GLOBALES
 // ======================
 let records = JSON.parse(localStorage.getItem('records') || '[]');
-let currentSignatureTarget = null; // 'esp' o 'cus'
+let currentSignatureTarget = null;
 const enableDeleteButton = true;
 const storageKey = 'records';
 
 // ======================
 // AUXILIARES
 // ======================
-function get(id){ return document.getElementById(id)?.value.trim() || ''; }
-function chk(id){ return document.getElementById(id)?.checked ? 'Sí' : 'No'; }
-
+function get(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+function chk(id) {
+  const el = document.getElementById(id);
+  return el && el.checked ? 'Sí' : 'No';
+}
 function getSignatureData(id) {
-  const el = document.getElementById(id);
-  // Comprobamos que el canvas no esté vacío antes de guardarlo
-  if (el && el.tagName === 'CANVAS') {
-    // Creamos un canvas temporal para verificar si está vacío
-    const buffer = document.createElement('canvas');
-    buffer.width = el.width;
-    buffer.height = el.height;
-    // Si el canvas actual es idéntico a uno vacío, no guardamos nada
-    if (el.toDataURL() === buffer.toDataURL()) {
-        return 'No firmada';
-    }
-    return el.toDataURL(); // Guardamos la imagen en Base64
-  }
-  return 'No firmada';
-}
-
-function generateFolio(){
-  const company = get('company') || 'SinEmpresa';
-  const now = new Date();
-  const y = now.getFullYear(), m = String(now.getMonth()+1).padStart(2,'0'),
-        d = String(now.getDate()).padStart(2,'0'), h = String(now.getHours()).padStart(2,'0'),
-        min = String(now.getMinutes()).padStart(2,'0');
-  return `Diag_Report-${company}-${y}${m}${d}-${h}${min}`;
+  const canvasElement = document.getElementById(id);
+  return canvasElement && canvasElement.tagName === 'CANVAS'
+    ? canvasElement.toDataURL()
+    : '';
 }
 
 // ======================
-// DOM READY
+// FOLIO AUTOMÁTICO
 // ======================
-document.addEventListener('DOMContentLoaded', () => {
+function generateFolio() {
+  const company = get('company') || 'SinEmpresa';
+  const now = new Date();
+  const y = now.getFullYear(),
+    m = String(now.getMonth() + 1).padStart(2, '0'),
+    d = String(now.getDate()).padStart(2, '0'),
+    h = String(now.getHours()).padStart(2, '0'),
+    min = String(now.getMinutes()).padStart(2, '0');
+  return `MC_Report-${company}-${y}${m}${d}-${h}${min}`;
+}
 
   // GUARDAR REGISTRO
   document.getElementById('saveBtn').addEventListener('click', ()=>{
@@ -177,98 +172,4 @@ function renderTable(){
     }).join('')}</tr>`;
     body.insertAdjacentHTML('beforeend', row);
   });
-}
-
-// ======================
-// LÓGICA DE CANVAS (FIRMA)
-// ======================
-/**
- * Inicializa un canvas para que acepte firmas (mouse y táctil).
- * @param {string} canvasId El ID del elemento <canvas>
- */
-function initializeSignaturePad(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    if (!canvas) {
-        console.error(`No se encontró el canvas con ID: ${canvasId}`);
-        return;
-    }
-    
-    const ctx = canvas.getContext('2d');
-    let isDrawing = false;
-    let lastX = 0;
-    let lastY = 0;
-
-    // Configuración del lápiz
-    ctx.strokeStyle = '#000000'; // Color de la firma
-    ctx.lineWidth = 2;          // Grosor de la línea
-    ctx.lineCap = 'round';      // Extremos redondeados
-    ctx.lineJoin = 'round';     // Uniones redondeadas
-
-    /** Obtiene la posición X/Y correcta del evento (mouse o táctil) */
-    function getEventPosition(event) {
-        const rect = canvas.getBoundingClientRect(); // Posición del canvas en la página
-        let x, y;
-
-        if (event.touches) { // Evento Táctil (móviles)
-            // previene el scroll de la página mientras se dibuja
-            event.preventDefault(); 
-            x = event.touches[0].clientX - rect.left;
-            y = event.touches[0].clientY - rect.top;
-        } else { // Evento de Mouse
-            x = event.clientX - rect.left;
-            y = event.clientY - rect.top;
-        }
-        return { x: x, y: y };
-    }
-
-    /** Inicia el dibujo */
-    function startDrawing(e) {
-        isDrawing = true;
-        const pos = getEventPosition(e);
-        [lastX, lastY] = [pos.x, pos.y];
-    }
-
-    /** Dibuja la línea */
-    function draw(e) {
-        if (!isDrawing) return; // Salir si no se está presionando
-        
-        const pos = getEventPosition(e);
-        
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY); // Desde el punto anterior
-        ctx.lineTo(pos.x, pos.y); // Hasta el punto actual
-        ctx.stroke();             // Dibujar la línea
-        
-        [lastX, lastY] = [pos.x, pos.y]; // Actualizar la última posición
-    }
-
-    /** Finaliza el dibujo */
-    function stopDrawing() {
-        isDrawing = false;
-    }
-
-    // --- Asignar los Eventos ---
-
-    // Eventos de Mouse
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseout', stopDrawing); // Detener si el mouse sale del canvas
-
-    // Eventos Táctiles (para móviles)
-    canvas.addEventListener('touchstart', startDrawing);
-    canvas.addEventListener('touchmove', draw);
-    canvas.addEventListener('touchend', stopDrawing);
-}
-
-
-// ======================
-// SEMÁFOROS
-// ======================
-function setEstado(num, color) {
-  const colores = ['roja', 'amarilla', 'verde'];
-  colores.forEach(c => {
-    document.getElementById(c + num)?.classList.remove('activa');
-  });
-  document.getElementById(color + num)?.classList.add('activa');
 }
