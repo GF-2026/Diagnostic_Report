@@ -93,55 +93,51 @@
                 <label><input type="checkbox" id="cold_test">Prueba de enfriamiento (soak 30 min)</label>
                 <div><label>Duración (min):</label><input type="text" id="pulldown"></div>
             </div>
-<!-- 8 – Salud -->
-            <hr>
-            <div class="section-header"><strong>8 – Indicadores de Salud</strong></div>
-<div class="contenedor">
-  <!-- Semáforo 1 -->
-  <div class="seccion">
-    <div class="titulo">Salud del sistema de Refrigeración</div>
-    <div class="semaforo" id="sema_ref">
-      <div class="luz roja" id="roja1"></div>
-      <div class="luz amarilla" id="amarilla1"></div>
-      <div class="luz verde" id="verde1"></div>
-    </div>
-    <div class="botones">
-      <button onclick="setEstado('1','roja')">Falla</button>
-      <button onclick="setEstado('1','amarilla')">Atención</button>
-      <button onclick="setEstado('1','verde')">OK</button>
-    </div>
+<!-- Semáforo 1 -->
+<div class="seccion">
+  <div class="titulo">Salud del sistema de Refrigeración</div>
+  <div class="semaforo" id="sema_ref">
+    <div class="luz roja" id="roja1"></div>
+    <div class="luz amarilla" id="amarilla1"></div>
+    <div class="luz verde" id="verde1"></div>
   </div>
+  <div class="botones">
+    <button type="button" onclick="setEstado('1','roja')">Falla</button>
+    <button type="button" onclick="setEstado('1','amarilla')">Atención</button>
+    <button type="button" onclick="setEstado('1','verde')">OK</button>
+  </div>
+</div>
 
-  <!-- Semáforo 2 -->
-  <div class="seccion">
-    <div class="titulo">Salud del sistema de Calefacción</div>
-    <div class="semaforo" id="sema_heat">
-      <div class="luz roja" id="roja2"></div>
-      <div class="luz amarilla" id="amarilla2"></div>
-      <div class="luz verde" id="verde2"></div>
-    </div>
-    <div class="botones">
-      <button onclick="setEstado('2','roja')">Falla</button>
-      <button onclick="setEstado('2','amarilla')">Atención</button>
-      <button onclick="setEstado('2','verde')">OK</button>
-    </div>
+<!-- Semáforo 2 -->
+<div class="seccion">
+  <div class="titulo">Salud del sistema de Calefacción</div>
+  <div class="semaforo" id="sema_heat">
+    <div class="luz roja" id="roja2"></div>
+    <div class="luz amarilla" id="amarilla2"></div>
+    <div class="luz verde" id="verde2"></div>
   </div>
+  <div class="botones">
+    <button type="button" onclick="setEstado('2','roja')">Falla</button>
+    <button type="button" onclick="setEstado('2','amarilla')">Atención</button>
+    <button type="button" onclick="setEstado('2','verde')">OK</button>
+  </div>
+</div>
 
-  <!-- Semáforo 3 -->
-  <div class="seccion">
-    <div class="titulo">Salud del sistema Eléctrico</div>
-    <div class="semaforo" id="semaforo3">
-      <div class="luz roja" id="roja3"></div>
-      <div class="luz amarilla" id="amarilla3"></div>
-      <div class="luz verde" id="verde3"></div>
-    </div>
-    <div class="botones">
-      <button onclick="setEstado('3','roja')">Falla</button>
-      <button onclick="setEstado('3','amarilla')">Atención</button>
-      <button onclick="setEstado('3','verde')">OK</button>
-    </div>
+<!-- Semáforo 3 -->
+<div class="seccion">
+  <div class="titulo">Salud del sistema Eléctrico</div>
+  <div class="semaforo" id="sema_elec">
+    <div class="luz roja" id="roja3"></div>
+    <div class="luz amarilla" id="amarilla3"></div>
+    <div class="luz verde" id="verde3"></div>
   </div>
-</div>            
+  <div class="botones">
+    <button type="button" onclick="setEstado('3','roja')">Falla</button>
+    <button type="button" onclick="setEstado('3','amarilla')">Atención</button>
+    <button type="button" onclick="setEstado('3','verde')">OK</button>
+  </div>
+</div>
+         
 <!-- 9 – Observaciones -->
             <hr>
             <div class="section-header"><strong>9 – Observaciones del cliente</strong></div>
