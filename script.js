@@ -5,6 +5,7 @@ let records = JSON.parse(localStorage.getItem('records') || '[]');
 let currentSignatureTarget = null;
 const enableDeleteButton = true;
 const storageKey = 'records';
+let estados = { 1: '', 2: '', 3: '' }; // 👈 estados de semáforos
 
 // ======================
 // AUXILIARES
@@ -17,9 +18,6 @@ function chk(id) {
   return document.getElementById(id)?.checked ? 'Sí' : 'No';
 }
 
-/**
- * Obtiene el dataURL de un canvas de firma, si existe.
- */
 function getSignatureData(id) {
   const canvasElement = document.getElementById(id);
   if (canvasElement && canvasElement.tagName === 'CANVAS') {
@@ -54,31 +52,40 @@ document.getElementById('saveBtn').addEventListener('click', () => {
     engineer: get('engineer'),
     phone: get('phone'),
     city: get('city'),
-    
+
     description: get('description'),
     brand: get('brand'),
     model: get('model'),
     serial: get('serial'),
     controlnum: get('controlnum'),
     status_test: get('status_test'),
-    
+
     ubication: get('ubication'),
     temperature: get('temperature'),
     humidity: get('humidity'),
-
-    info_fail:
-    status:
-    if_not_work:
-    part_change:
-
-    heat_target:
-    heat_test: chk
-    temp_high:
-    cold_test:
-    get_time_target:
-    pulldown:
-
-    semaforos
+    
+    info_fail:: get('info_fail'),
+    status: get('status'),
+    if_not_work: get('if_not_work'),
+    part_change: get('part_change'),
+    act_work: get('act_work'),
+    ini_work: get('ini_work'),
+    fin_work: get('fin_work'),
+    heat_from: get('heat_from'),
+    heat_target: get('heat_target'),
+    heat_test: get('heat_test'),
+    hum_low: get('hum_low'),
+    hum_high: get('hum_high'),
+    hum_test: get('hum_test'),
+    temp_high: get('temp_high'),
+    temp_low: get('temp_low'),
+    cold_test: get('cold_test'),
+    get_time_target: get('get_time_target'),
+    pulldown: get('pulldown'),
+    // === SEMÁFOROS ===
+    estado_ref: estados[1],
+    estado_heat: estados[2],
+    estado_elec: estados[3],
 
     notes: get('notes'),
     name_esp: get('name_esp'),
@@ -103,6 +110,14 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   const cusCtx = document.getElementById('signaturePreviewCus')?.getContext('2d');
   if (espCtx) espCtx.clearRect(0, 0, 300, 150);
   if (cusCtx) cusCtx.clearRect(0, 0, 300, 150);
+
+  // 🔄 Reset semáforos
+  estados = { 1: '', 2: '', 3: '' };
+  ['1','2','3'].forEach(num => {
+    ['roja','amarilla','verde'].forEach(c => 
+      document.getElementById(c + num)?.classList.remove('activa')
+    );
+  });
 });
 
 // ======================
@@ -134,7 +149,6 @@ function renderTable() {
     body.insertAdjacentHTML('beforeend', row);
   });
 }
-
 renderTable();
 
 // ======================
@@ -215,14 +229,12 @@ function getTouchPos(canvasDom, touchEvent) {
   };
 }
 
-// Eventos de mouse
 canvas.addEventListener('mousedown', e => {
   e.preventDefault();
   drawing = true;
   ctx.beginPath();
   ctx.moveTo(e.offsetX, e.offsetY);
 });
-
 canvas.addEventListener('mouseup', () => { drawing = false; });
 canvas.addEventListener('mouseout', () => { drawing = false; });
 canvas.addEventListener('mousemove', e => {
@@ -234,7 +246,6 @@ canvas.addEventListener('mousemove', e => {
   ctx.stroke();
 });
 
-// Eventos táctiles
 canvas.addEventListener('touchstart', e => {
   e.preventDefault();
   drawing = true;
@@ -242,9 +253,7 @@ canvas.addEventListener('touchstart', e => {
   ctx.beginPath();
   ctx.moveTo(touch.x, touch.y);
 });
-
 canvas.addEventListener('touchend', () => { drawing = false; });
-
 canvas.addEventListener('touchmove', e => {
   e.preventDefault();
   if (!drawing) return;
@@ -263,4 +272,5 @@ function setEstado(num, color) {
   const colores = ['roja', 'amarilla', 'verde'];
   colores.forEach(c => document.getElementById(c + num).classList.remove('activa'));
   document.getElementById(color + num).classList.add('activa');
+  estados[num] = color; // 👈 guardar el color en variable global
 }
