@@ -192,7 +192,7 @@ hr {
     /* Nota: Si esto no funciona, prueba añadir !important TEMPORALMENTE 
        al final de la línea 'width' para confirmar que el problema es la especificidad. */
 }
-  .contenedor {
+.contenedor {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
