@@ -230,7 +230,7 @@ document.getElementById('exportBtn').addEventListener('click', ()=>{
     const ws = XLSX.utils.json_to_sheet(records);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Registro_de_preventivos.xlsx');
+    XLSX.writeFile(wb, 'Diagnostic_reports.xlsx');
 });
 
 // ======================
