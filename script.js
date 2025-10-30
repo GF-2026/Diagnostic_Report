@@ -10,21 +10,50 @@ let estados = { 1: '', 2: '', 3: '' }; // 👈 estados de semáforos
 // ======================
 // AUXILIARES
 // ======================
-function get(id){ return document.getElementById(id).value.trim(); }
-function chk(id){ return document.getElementById(id).checked ? 'Sí' : 'No'; }
+// ======================
+// FUNCIONES AUXILIARES
+// ======================
+// ======================
+// FUNCIONES AUXILIARES SEGURAS
+// ======================
 
-/**
- * Función auxiliar segura para obtener el dataURL de un elemento canvas.
- * Evita que el script falle si el elemento no se encuentra o no es un canvas.
- */
+// Obtener valor de un input o textarea de forma segura
+function get(id) {
+    const el = document.getElementById(id);
+    if (!el) return '';              // Si no existe, devuelve vacío
+    if ('value' in el) return el.value.trim();  // Si tiene valor, devuelve value
+    return '';                        // Si no tiene value, devuelve vacío
+}
+
+// Obtener estado de un checkbox de forma segura
+function chk(id) {
+    const el = document.getElementById(id);
+    if (!el) return '0';              // Si no existe, devuelve 0
+    return el.checked ? '1' : '0';   // Si existe, devuelve '1' o '0'
+}
+
+// Obtener valor de un grupo de radio buttons de forma segura
+function estado(name) {
+    const seleccionado = document.querySelector(`input[name="${name}"]:checked`);
+    return seleccionado ? seleccionado.value : ''; // Si no hay ninguno seleccionado, devuelve vacío
+}
+
+// Obtener dataURL de canvas de forma segura
 function getSignatureData(id) {
     const canvasElement = document.getElementById(id);
-    // Verifica que el elemento exista y sea un CANVAS antes de llamar a toDataURL()
     if (canvasElement && canvasElement.tagName === 'CANVAS') {
         return canvasElement.toDataURL();
     }
-    return ''; // Devuelve cadena vacía si falla
+    return '';
 }
+
+
+// 🔹 NUEVA FUNCIÓN: devuelve el valor seleccionado de un grupo de radios
+function estado(name) {
+  const seleccionado = document.querySelector(`input[name="${name}"]:checked`);
+  return seleccionado ? seleccionado.value : '';
+}
+
 
 // ======================
 // FOLIO AUTOMÁTICO
@@ -34,7 +63,7 @@ function generateFolio(){
     const now = new Date();
     const y = now.getFullYear(), m = String(now.getMonth()+1).padStart(2,'0'), d = String(now.getDate()).padStart(2,'0');
     const h = String(now.getHours()).padStart(2,'0'), min = String(now.getMinutes()).padStart(2,'0');
-    return `Diagnostic_Report-${company}-${y}${m}${d}-${h}${min}`;
+    return `MP_Report-${company}-${y}${m}${d}-${h}${min}`;
 }
 
 // ======================
@@ -42,68 +71,164 @@ function generateFolio(){
 // ======================
 document.getElementById('saveBtn').addEventListener('click', () => {
 const record = {
-  // 1 – Datos de cliente
-  OT: get('OT'),
-  datetime: get('datetime'),
-  company: get('company'),
-  engineer: get('engineer'),
-  phone: get('phone'),
-  city: get('city'),
 
-  // 2 – Datos del equipo
-  description: get('description'),
-  brand: get('brand'),
-  model: get('model'),
-  serial: get('serial'),
-  controlnum: get('controlnum'),
-  status_test: get('status_test'),
 
-  // 3 – Condiciones ambientales
-  ubication: get('ubication'),
-  temperature: get('temperature'),
-  humidity: get('humidity'),
+  // 1️⃣ Datos de cliente
+acid_ok: chk('acid_ok'),
+act_work: get('act_work'),
+armafles_ok: chk('armafles_ok'),
+balance_ok: chk('balance_ok'),
+brand: get('brand'),
+bypass_calibration_hs_ok: chk('bypass_calibration_hs_ok'),
+bypass_calibration_ls_ok: chk('bypass_calibration_ls_ok'),
+capillaries_ok: chk('capillaries_ok'),
+city: get('city'),
+coils_ok: chk('coils_ok'),
+cold_test_ok: chk('cold_test_ok'),
+company: get('company'),
+controlnum: get('controlnum'),
+crankcase_ok: chk('crankcase_ok'),
+current_circ_r: get('current_circ_r'),
+current_circ_s: get('current_circ_s'),
+current_circ_t: get('current_circ_t'),
+current_comp_mono_c: get('current_comp_mono_c'),
+current_comp_mono_r: get('current_comp_mono_r'),
+current_comp_mono_s: get('current_comp_mono_s'),
+current_cond_fan_r: get('current_cond_fan_r'),
+current_cond_fan_s: get('current_cond_fan_s'),
+current_cond_fan_t: get('current_cond_fan_t'),
+current_heat_r: get('current_heat_r'),
+current_heat_s: get('current_heat_s'),
+current_heat_t: get('current_heat_t'),
+current_hs_r: get('current_hs_r'),
+current_hs_s: get('current_hs_s'),
+current_hs_t: get('current_hs_t'),
+current_hum_r: get('current_hum_r'),
+current_hum_s: get('current_hum_s'),
+current_hum_t: get('current_hum_t'),
+current_ls_r: get('current_ls_r'),
+current_ls_s: get('current_ls_s'),
+current_ls_t: get('current_ls_t'),
+customer_suggestions: get('customer_suggestions'),
+datetime: get('datetime'),
+description: get('description'),
+engineer: get('engineer'),
+estado_elec: estado('estado_elec'),
+estado_heat: estado('estado_heat'),
+estado_ref: estado('estado_ref'),
+fans_ok: chk('fans_ok'),
+faseado_ok: chk('faseado_ok'),
+fin_work: get('fin_work'),
+folio: generateFolio(),
+frosty_ok: chk('frosty_ok'),
+fuses_ok: chk('fuses_ok'),
+get_time_target: get('get_time_target'),
+grounded_ok: chk('grounded_ok'),
+headfan_ok: chk('headfan_ok'),
+heat_from: get('heat_from'),
+heat_target: get('heat_target'),
+heat_test_ok: chk('heat_test_ok'),
+highvolt_cables_ok: chk('highvolt_cables_ok'),
+hilow_protect_ok: chk('hilow_protect_ok'),
+hum_from: get('hum_from'),
+hum_high: get('hum_high'),
+hum_low: get('hum_low'),
+hum_target: get('hum_target'),
+hum_test_ok: chk('hum_test_ok'),
+humidity: get('humidity'),
+if_not_work: get('if_not_work'),
+info_fail: get('info_fail'),
+ini_work: get('ini_work'),
+injection_valve_ok: chk('injection_valve_ok'),
+inyection_ok: chk('inyection_ok'),
+level_oi_ok: chk('level_oi_ok'),
+main_switch_ok: chk('main_switch_ok'),
+manuals_ok: chk('manuals_ok'),
+marking_ok: chk('marking_ok'),
+model: get('model'),
+name_cus: get('name_cus'),
+name_esp: get('name_esp'),
+no_strange_noise_ok: chk('no_strange_noise_ok'),
+noleaks_ok: chk('noleaks_ok'),
+notes_Esp: get('notes_Esp'),
+notes_Cus: get('notes_Cus'),
+OT: get('OT'),
+pallets_ok: chk('pallets_ok'),
+part_change: get('part_change'),
+pay_order: get('pay_order'),
+phone: get('phone'),
+press_water_in_cond_ok: chk('press_water_in_cond_ok'),
+press_water_out_cond_ok: chk('press_water_out_cond_ok'),
+pressures_hs_disch: get('pressures_hs_disch'),
+pressures_hs_suction: get('pressures_hs_suction'),
+pressures_ls_disch: get('pressures_ls_disch'),
+pressures_ls_suction: get('pressures_ls_suction'),
+protect_lowleveloil_ok: chk('protect_lowleveloil_ok'),
+pulldown: get('pulldown'),
+has_refrigerant_ok: chk('has_refrigerant_ok'),
+resis_to_ground: get('resis_to_ground'),
+resistance_circ_rs: get('resistance_circ_rs'),
+resistance_circ_rt: get('resistance_circ_rt'),
+resistance_circ_st: get('resistance_circ_st'),
+resistance_circs_to_ground_ok: chk('resistance_circs_to_ground_ok'),
+resistance_comp_mono_cr: get('resistance_comp_mono_cr'),
+resistance_comp_mono_cs: get('resistance_comp_mono_cs'),
+resistance_comp_mono_sr: get('resistance_comp_mono_sr'),
+resistance_comp_mono_to_ground_ok: chk('resistance_comp_mono_to_ground_ok'),
+resistance_heat_rs: get('resistance_heat_rs'),
+resistance_heat_rt: get('resistance_heat_rt'),
+resistance_heat_st: get('resistance_heat_st'),
+resistance_heats_to_ground_ok: chk('resistance_heats_to_ground_ok'),
+resistance_hs_rs: get('resistance_hs_rs'),
+resistance_hs_rt: get('resistance_hs_rt'),
+resistance_hs_st: get('resistance_hs_st'),
+resistance_hs_to_ground_ok: chk('resistance_hs_to_ground_ok'),
+resistance_hum_1: get('resistance_hum_1'),
+resistance_hum_2: get('resistance_hum_2'),
+resistance_hum_3: get('resistance_hum_3'),
+resistance_hums_to_ground_ok: chk('resistance_hums_to_ground_ok'),
+resistance_ls_rs: get('resistance_ls_rs'),
+resistance_ls_rt: get('resistance_ls_rt'),
+resistance_ls_st: get('resistance_ls_st'),
+resistance_ls_to_ground_ok: chk('resistance_ls_to_ground_ok'),
+resultado_servicio: estado('resultado_servicio'),
+rotalocks_ok: chk('rotalocks_ok'),
+satus: get('satus'),
+serial: get('serial'),
+shock_free_ok: chk('shock_free_ok'),
+sights_ok: chk('sights_ok'),
+signaturePreviewCus: getSignatureData('signaturePreviewCus'),
+signaturePreviewEsp: getSignatureData('signaturePreviewEsp'),
+specs_available_ok: chk('specs_available_ok'),
+static_hs: get('static_hs'),
+static_ls: get('static_ls'),
+status_test: get('status_test'),
+supplies_installed_ok: chk('supplies_installed_ok'),
+switch_covers_ok: chk('switch_covers_ok'),
+temp_disch_hs_ok: chk('temp_disch_hs_ok'),
+temp_disch_ls_ok: chk('temp_disch_ls_ok'),
+temp_high: get('temp_high'),
+temp_low: get('temp_low'),
+temp_water_in_cond_ok: chk('temp_water_in_cond_ok'),
+temp_water_out_cond_ok: chk('temp_water_out_cond_ok'),
+temperature: get('temperature'),
+tighting_ok: chk('tighting_ok'),
+ubication: get('ubication'),
+have_space_unpack_ok: chk('have_space_unpack_ok'),
+voltage_fase_to_neutral: get('voltage_fase_to_neutral'),
+voltage_plate: get('voltage_plate'),
+voltage_plate_ok: chk('voltage_plate_ok'),
+voltaje_hs_1: get('voltaje_hs_1'),
+voltaje_hs_2: get('voltaje_hs_2'),
+voltaje_hs_3: get('voltaje_hs_3'),
+voltaje_ls_1: get('voltaje_ls_1'),
+voltaje_ls_2: get('voltaje_ls_2'),
+voltaje_ls_3: get('voltaje_ls_3'),
+  estado_ref: estados[1],
+  estado_heat: estados[2],
+  estado_elec: estados[3],
+  resultado_servicio:estado('proximo_servicio'),
 
-  // 4 – Falla reportada o diagnosticada
-  info_fail: get('info_fail'),
-
-  // 5 – Inspección inicial
-  satus: get('satus'), // ⚠️ revisar si debería ser 'status'
-  if_not_work: get('if_not_work'),
-  part_change: get('part_change'),
-
-  // 6 – Diagnóstico
-  act_work: get('act_work'),
-  ini_work: get('ini_work'),
-  fin_work: get('fin_work'),
-
-  // 7 – Pruebas
-  heat_from: get('heat_from'),
-  heat_target: get('heat_target'),
-  heat_test: chk('heat_test'),
-  hum_low: get('hum_low'),
-  hum_high: get('hum_high'),
-  hum_test: chk('hum_test'),
-  temp_high: get('temp_high'),
-  temp_low: get('temp_low'),
-  cold_test: chk('cold_test'),
-  get_time_target: get('get_time_target'),
-  pulldown: get('pulldown'),
-
-  // 8 – Indicadores de Salud
-  estado_ref: estados[1],
-  estado_heat: estados[2],
-  estado_elec: estados[3],
-
-  // 9 – Observaciones
-  notes: get('notes'),
-
-  // 10 – Firma especialista
-  name_esp: get('name_esp'),
-  signatureEsp: getSignatureData('signaturePreviewEsp'),
-
-  // 11 – Firma cliente
-  name_cus: get('name_cus'),
-  signatureCus: getSignatureData('signaturePreviewCus')
 };
 
   records.push(record);
@@ -138,69 +263,158 @@ function renderTable(){
     const head = document.getElementById('tableHead');
     const body = document.getElementById('tableBody');
     body.innerHTML = '';
-const columns = [
-  // 1 – Datos de cliente
-  'OT',
-  'datetime',
-  'company',
-  'engineer',
-  'phone',
-  'city',
+    const columns = [
+'acid_ok',
+'act_work',
+'armafles_ok',
+'balance_ok',
+'brand',
+'bypass_calibration_hs_ok',
+'bypass_calibration_ls_ok',
+'capillaries_ok',
+'city',
+'coils_ok',
+'cold_test_ok',
+'company',
+'controlnum',
+'crankcase_ok',
+'current_circ_r',
+'current_circ_s',
+'current_circ_t',
+'current_comp_mono_c',
+'current_comp_mono_r',
+'current_comp_mono_s',
+'current_cond_fan_r',
+'current_cond_fan_s',
+'current_cond_fan_t',
+'current_heat_r',
+'current_heat_s',
+'current_heat_t',
+'current_hs_r',
+'current_hs_s',
+'current_hs_t',
+'current_hum_r',
+'current_hum_s',
+'current_hum_t',
+'current_ls_r',
+'current_ls_s',
+'current_ls_t',
+'customer_suggestions',
+'datetime',
+'description',
+'engineer',
+'estado_elec',
+'estado_heat',
+'estado_ref',
+'fans_ok',
+'faseado_ok',
+'fin_work',
+'folio',
+'frosty_ok',
+'fuses_ok',
+'get_time_target',
+'grounded_ok',
+'headfan_ok',
+'heat_from',
+'heat_target',
+'heat_test_ok',
+'highvolt_cables_ok',
+'hilow_protect_ok',
+'hum_from',
+'hum_high',
+'hum_low',
+'hum_target',
+'hum_test_ok',
+'humidity',
+'if_not_work',
+'info_fail',
+'ini_work',
+'injection_valve_ok',
+'inyection_ok',
+'level_oi_ok',
+'main_switch_ok',
+'manuals_ok',
+'marking_ok',
+'model',
+'name_cus',
+'name_esp',
+'no_strange_noise_ok',
+'noleaks_ok',
+'notes',
+'OT',
+'pallets_ok',
+'part_change',
+'pay_order',
+'phone',
+'press_water_in_cond_ok',
+'press_water_out_cond_ok',
+'pressures_hs_disch',
+'pressures_hs_suction',
+'pressures_ls_disch',
+'pressures_ls_suction',
+'pulldown',
+'protect_lowleveloil_ok',
+'has_refrigerant_ok',
+'resis_to_ground',
+'resistance_circ_rs',
+'resistance_circ_rt',
+'resistance_circ_st',
+'resistance_circs_to_ground_ok',
+'resistance_comp_mono_cr',
+'resistance_comp_mono_cs',
+'resistance_comp_mono_sr',
+'resistance_comp_mono_to_ground_ok',
+'resistance_heat_rs',
+'resistance_heat_rt',
+'resistance_heat_st',
+'resistance_heats_to_ground_ok',
+'resistance_hs_rs',
+'resistance_hs_rt',
+'resistance_hs_st',
+'resistance_hs_to_ground_ok',
+'resistance_hum_1',
+'resistance_hum_2',
+'resistance_hum_3',
+'resistance_hums_to_ground_ok',
+'resistance_ls_rs',
+'resistance_ls_rt',
+'resistance_ls_st',
+'resistance_ls_to_ground_ok',
+'resultado_servicio',
+'rotalocks_ok',
+'satus',
+'serial',
+'shock_free_ok',
+'sights_ok',
+'signaturePreviewCus',
+'signaturePreviewEsp',
+'specs_available_ok',
+'static_hs',
+'static_ls',
+'status_test',
+'supplies_installed_ok',
+'switch_covers_ok',
+'temp_disch_hs_ok',
+'temp_disch_ls_ok',
+'temp_high',
+'temp_low',
+'temp_water_in_cond_ok',
+'temp_water_out_cond_ok',
+'temperature',
+'tighting_ok',
+'ubication',
+'have_space_unpack_ok',
+'voltage_fase_to_neutral',
+'voltage_plate',
+'voltage_plate_ok',
+'voltaje_hs_1',
+'voltaje_hs_2',
+'voltaje_hs_3',
+'voltaje_ls_1',
+'voltaje_ls_2',
+'voltaje_ls_3',
 
-  // 2 – Datos del equipo
-  'description',
-  'brand',
-  'model',
-  'serial',
-  'controlnum',
-  'status_test',
-
-  // 3 – Condiciones ambientales
-  'ubication',
-  'temperature',
-  'humidity',
-
-  // 4 – Falla reportada o diagnosticada
-  'info_fail',
-
-  // 5 – Inspección inicial
-  'satus',
-  'if_not_work',
-  'part_change',
-
-  // 6 – Diagnóstico
-  'act_work',
-  'ini_work',
-  'fin_work',
-
-  // 7 – Pruebas
-  'heat_from',
-  'heat_target',
-  'heat_test',
-  'hum_low',
-  'hum_high',
-  'hum_test',
-  'temp_high',
-  'temp_low',
-  'cold_test',
-  'get_time_target',
-  'pulldown',
-
-  // 8 – Indicadores de Salud (semáforos)
-  'estado_ref',
-  'estado_heat',
-  'estado_elec',
-
-  // 9 – Observaciones
-  'notes',
-
-  // 10 – Firma especialista
-  'name_esp',
-  'signatureEsp',
-
-  // 11 – Firma cliente
-  'name_cus',
-  'signatureCus'
+  'estado_ref', 'estado_heat', 'estado_elec','resultado_servicio'
 ];
     
     head.innerHTML = columns.map(c => `<th>${c.toUpperCase().replace(/_/g, ' ')}</th>`).join('');
@@ -230,7 +444,7 @@ document.getElementById('exportBtn').addEventListener('click', ()=>{
     const ws = XLSX.utils.json_to_sheet(records);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Diagnostic_reports.xlsx');
+    XLSX.writeFile(wb, 'Preventive_reports.xlsx');
 });
 
 // ======================
@@ -347,3 +561,43 @@ function setEstado(num, color) {
   // 🔄 Guardar el valor seleccionado en el objeto estados
   estados[num] = color;
 }
+
+function verProximoServicio() {
+  const seleccionado = document.querySelector('input[name="proximo_servicio"]:checked');
+  const salida = document.getElementById('resultado_servicio');
+  
+  if (seleccionado) {
+    salida.textContent = "Servicio sugerido: " + seleccionado.value;
+  } else {
+    salida.textContent = "⚠️ No se ha seleccionado ninguna opción.";
+  }
+}
+document.getElementById('sendEmailBtn').addEventListener('click', () => {
+    const to = "jgarcia.fixser@gmail.com"; // destinatario fijo
+    const subject = encodeURIComponent("Nuevo reporte preventivo");
+    
+    // Recolectar algunos datos del formulario
+    const company = encodeURIComponent(get('company'));
+    const folio = encodeURIComponent(generateFolio('folio')); // si tienes tu función generate
+    const model = encodeURIComponent(get('model'));
+    const serial = encodeURIComponent(get('serial'));
+    const status = encodeURIComponent(get('status_test'));
+    const notes = encodeURIComponent(get('notes_Esp'));
+    
+    // Cuerpo del mensaje
+    const body = encodeURIComponent(
+        `Hola,\n\nTienes un nuevo reporte preventivo:\n\n` +
+        `Folio: ${folio}\n` +
+        `Empresa: ${company}\n` +
+        `Modelo: ${model}\n` +
+        `Serial: ${serial}\n` +
+        `Status: ${status}\n` +
+        `Notas: ${notes}\n\n` +
+        `Por favor, adjunta el archivo del registro antes de enviar.\n\nGracias.`
+    );
+    
+    // Abrir cliente de correo predeterminado
+    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+});
+
+
