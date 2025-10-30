@@ -84,14 +84,14 @@
             <div class="grid">
                 <div><label>Temp. ambiente (°C):</label><input type="text" id="heat_from"></div>
                 <div><label>Punto máximo -10 (°C):</label><input type="text" id="heat_target"></div>
-                <label><input type="checkbox" id="heat_test">Prueba de calentamiento (soak 30 min)</label>
+                <label><input type="checkbox" id="heat_test_ok">Prueba de calentamiento (soak 30 min)</label>
                 <div><label>Humedad baja (20 %HR):</label><input type="text" id="hum_low"></div>
                 <div><label>Humedad alta (80 %HR):</label><input type="text" id="hum_high"></div>
-                <label><input type="checkbox" id="hum_test">Prueba de humedad (soak 30 min c/u)</label>
+                <label><input type="checkbox" id="hum_test_ok">Prueba de humedad (soak 30 min c/u)</label>
                 <div><label>Punto máximo -10 (°C):</label><input type="text" id="temp_high"></div>
                 <div><label>Punto máximo +10 (°C):</label><input type="text" id="temp_low"></div>
-                <label><input type="checkbox" id="cold_test">Prueba de enfriamiento (soak 30 min)</label>
-                <div><label>Tiempo que tardó (min):</label><input type="text" id="get_time_target"></div>
+                <label><input type="checkbox" id="cold_test_ok">Prueba de enfriamiento (soak 30 min)</label>
+                <div><label>Tiempo que tardó en llegar (min):</label><input type="text" id="get_time_target"></div>
                 <div><label>Presión máxima (Psi):</label><input type="text" id="pulldown"></div>
             </div>
                         <hr>
@@ -140,20 +140,44 @@
     <button type="button" onclick="setEstado('3','verde')">OK</button>
   </div>
 </div>
+<!-- Pregunta: ¿Cuándo se sugiere el siguiente servicio? -->
+<div class="pregunta">
+  <p><strong>¿Cuándo se sugiere el siguiente servicio?</strong></p>
+
+  <label class="opcion verde">
+    <input type="radio" name="proximo_servicio" value="En 3 meses"> En 3 meses
+  </label>
+
+  <label class="opcion amarillo">
+    <input type="radio" name="proximo_servicio" value="En 6 meses"> En 6 meses
+  </label>
+
+  <label class="opcion rojo">
+    <input type="radio" name="proximo_servicio" value="En 1 año"> En 1 año
+  </label>
+</div>
+
+<!-- Botón para probar el resultado -->
+<button type="button" onclick="verProximoServicio()">Ver resultado</button>
+
+<p id="resultado_servicio"></p>
          
 <!-- 9 – Observaciones -->
-            <hr>
-            <div class="section-header"><strong>9 – Observaciones del cliente</strong></div>
-            <textarea id="notes"></textarea>
+             <hr>
+            <div class="section-header"><strong>9 – Notas del Especialista</strong></div>
+            <textarea id="notes_Esp"></textarea>
+            <div class="section-header"><strong>10 – Comentarios del Cliente</strong></div>
+            <textarea id="notes_Cus"></textarea>
+
 <!-- 10 – Firma de especialista -->
             <hr>
-            <div class="section-header"><strong>10 – Firma de especialista</strong></div>
+            <div class="section-header"><strong>11 – Firma de especialista</strong></div>
             <div><label>Nombre de Especialista</label><input type="text" id="name_esp"></div>
             <button type="button" id="openSignatureEsp">Firma de Especialista</button>
             <canvas id="signaturePreviewEsp" width="300" height="150"></canvas>
 <!-- 11 – Firma de cliente -->
             <hr>
-            <div class="section-header"><strong>11 – Firma de cliente</strong></div>
+            <div class="section-header"><strong>12 – Firma de cliente</strong></div>
             <div><label>Nombre de Cliente</label><input type="text" id="name_cus"></div>
             <button type="button" id="openSignatureCus">Firma de Cliente</button>
             <canvas id="signaturePreviewCus" width="300" height="150"></canvas>
@@ -165,6 +189,8 @@
                 <button type="button" id="exportBtn">Exportar a Excel</button>
                 <button type="button" id="deleteAllBtn" class="secondary">Borrar registros</button>
             </div>
+<!-- Botón para enviar correo -->
+<button type="button" id="sendEmailBtn">Enviar reporte por correo</button>
         </form>
 <!-- Tabla de registros -->
         <div class="card">
