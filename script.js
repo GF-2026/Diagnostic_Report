@@ -573,7 +573,7 @@ function verProximoServicio() {
   }
 }
 document.getElementById('sendEmailBtn').addEventListener('click', () => {
-    const to = "jgarcia.fixser@gmail.com"; // destinatario fijo
+    const to = "tck@olimp0.com"; // destinatario fijo
     const subject = encodeURIComponent("Nuevo reporte preventivo");
     
     // Recolectar algunos datos del formulario
