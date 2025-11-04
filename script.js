@@ -573,7 +573,7 @@ function verProximoServicio() {
   }
 }
 document.getElementById('sendEmailBtn').addEventListener('click', () => {
-  const to = "tck@empresa.com";
+  const to = "tck@olimpo.com";
   const subject = encodeURIComponent("Nuevo reporte preventivo");
 
   const company = get('company');
