@@ -573,31 +573,34 @@ function verProximoServicio() {
   }
 }
 document.getElementById('sendEmailBtn').addEventListener('click', () => {
-    const to = "tck@olimp0.com"; // destinatario fijo
-    const subject = encodeURIComponent("Nuevo reporte preventivo");
-    
-    // Recolectar algunos datos del formulario
-    const company = encodeURIComponent(get('company'));
-    const folio = encodeURIComponent(generateFolio('folio')); // si tienes tu función generate
-    const model = encodeURIComponent(get('model'));
-    const serial = encodeURIComponent(get('serial'));
-    const status = encodeURIComponent(get('status_test'));
-    const notes = encodeURIComponent(get('notes_Esp'));
-    
-    // Cuerpo del mensaje
-    const body = encodeURIComponent(
-        `Hola,\n\nTienes un nuevo reporte preventivo:\n\n` +
-        `Folio: ${folio}\n` +
-        `Empresa: ${company}\n` +
-        `Modelo: ${model}\n` +
-        `Serial: ${serial}\n` +
-        `Status: ${status}\n` +
-        `Notas: ${notes}\n\n` +
-        `Por favor, adjunta el archivo del registro antes de enviar.\n\nGracias.`
-    );
-    
-    // Abrir cliente de correo predeterminado
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+  const to = "tck@empresa.com";
+  const subject = encodeURIComponent("Nuevo reporte preventivo");
+
+  const company = get('company');
+  const folio = generateFolio('folio');
+  const model = get('model');
+  const serial = get('serial');
+  const status = get('status_test');
+  const notes = get('notes_Esp');
+
+  // 💡 Usamos HTML con <br> para asegurar formato visible en BlueMail
+  const htmlBody =
+`Hola,<br><br>
+Tienes un nuevo reporte preventivo:<br><br>
+<strong>Folio:</strong> ${folio}<br>
+<strong>Empresa:</strong> ${company}<br>
+<strong>Modelo:</strong> ${model}<br>
+<strong>Serial:</strong> ${serial}<br>
+<strong>Status:</strong> ${status}<br>
+<strong>Notas:</strong> ${notes}<br><br>
+Por favor, adjunta el archivo del registro antes de enviar.<br><br>
+Gracias.`;
+
+  // Codificamos todo el HTML como texto URL
+  const body = encodeURIComponent(htmlBody);
+
+  const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
+  window.location.href = mailtoLink;
 });
 
 
