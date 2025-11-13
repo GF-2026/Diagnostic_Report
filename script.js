@@ -86,7 +86,7 @@ city: get('city'),
 coils_ok: chk('coils_ok'),
 cold_test_ok: chk('cold_test_ok'),
 company: get('company'),
-controller_calibrated_ok: chk('controller_calibrated_ok');
+controller_calibrated_ok: chk('controller_calibrated_ok'),
 controlnum: get('controlnum'),
 crankcase_ok: chk('crankcase_ok'),
 current_circ_r: get('current_circ_r'),
