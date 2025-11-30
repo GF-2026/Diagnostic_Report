@@ -60,117 +60,130 @@
             <div class="grid">
                 <div class="mediciones">
                     <div>
-                        <label>Presión Estática LS:</label><br>
-                        <input type="number" step="1" id="static_ls">
+                         <label>Presión Estática LS:*</label><br>
+                        <input type="number" step="1" id="static_ls" required>
                         <label>Psi</label><br>
                     </div>
 
                     <div>
-                        <label>Presión Estática HS:</label><br>
-                        <input type="number" step="1" id="static_hs">
+                        <label>Presión Estática HS:*</label><br>
+                        <input type="number" step="1" id="static_hs" required>
                         <label>Psi</label><br>
                     </div>
 
                     <div>
                         <label>Resistencia compresor HS (Ω):</label><br>
-                        <input type="number" step="0.1" id="resistance_hs_1">
-                        <input type="number" step="0.1" id="resistance_hs_2">
-                        <input type="number" step="0.1" id="resistance_hs_3">
+                        <div><label>T1-T2*<input type="number"   id="resistance_hs_rs" required></label></div>
+                        <div><label>T1-T3*<input type="number"   id="resistance_hs_rt" required></label></div>
+                        <div><label>T2-T3*<input type="number"   id="resistance_hs_st" required></label></div>
                     </div>
-
+                    
+                    <div>
+                        <label>A tierra:*</label><br>
+                        <input type="number" id="resistance_hs_to_ground" required>
+                    </div>
+                    
                     <div>
                         <label>Resistencia compresor LS (Ω):</label><br>
-                        <input type="number" step="0.1" id="resistance_ls_1">
-                        <input type="number" step="0.1" id="resistance_ls_2">
-                        <input type="number" step="0.1" id="resistance_ls_3">
+                        <input type="number" step="0.1" id="resistance_ls_rs">
+                        <input type="number" step="0.1" id="resistance_ls_rt">
+                        <input type="number" step="0.1" id="resistance_ls_st">
+                    </div>
+                    
+                    <div>
+                        <label>A tierra:*</label><br>
+                        <input type="number" id="resistance_ls_to_ground" required>
                     </div>
 
                     <div>
-                        <label>Resistencia circulador (Ω):</label><br>
-                        <input type="number" step="0.1" id="resistance_circ_1">
-                        <input type="number" step="0.1" id="resistance_circ_2">
-                        <input type="number" step="0.1" id="resistance_circ_3">
+                        <label>Resistencia circulador (Ω):*</label><br>
+                        <input type="number"   id="resistance_circ_rs" required>
+                        <input type="number"   id="resistance_circ_rt">
+                        <input type="number"   id="resistance_circ_st">
+                    </div>
+                    
+                    <div>
+                        <label>A tierra:*</label><br>
+                        <input type="number" id="resistance_circs_to_ground" required>
                     </div>
 
                     <div>
                         <label>Resistencia heater (Ω):</label><br>
-                        <input type="number" step="0.1" id="resistance_heat_1">
-                        <input type="number" step="0.1" id="resistance_heat_2">
-                        <input type="number" step="0.1" id="resistance_heat_3">
+                        <div><label>H1-H2*<input type="number"   id="resistance_heat_rs" required></label></div>
+                        <div><label>H1-H3*<input type="number"   id="resistance_heat_rt" required></label></div>
+                        <div><label>H2-H3*<input type="number"   id="resistance_heat_st" required></label></div> 
+                    </div>
+                    
+                    <div>
+                        <label>A tierra:*</label><br>
+                        <input type="number" id="resistance_heats_to_ground" required>
                     </div>
 
                     <div>
                         <label>Resistencia humidificador (Ω):</label><br>
-                        <input type="number" step="0.1" id="resistance_hum_1">
-                        <input type="number" step="0.1" id="resistance_hum_2">
-                        <input type="number" step="0.1" id="resistance_hum_3">
+                        <input type="number" step="0.1" id="resistance_hum_rs">
+                        <input type="number" step="0.1" id="resistance_hum_rt">
+                        <input type="number" step="0.1" id="resistance_hum_st">
+                    </div>
+
+                    <div>
+                        <label>A tierra:</label><br>
+                        <input type="number" id="resistance_hums_to_ground">
                     </div>
 
                     <div>
                         <label>Voltaje compresor HS (V):</label><br>
-                        <input type="number" id="voltaje_hs_1">
-                        <input type="number" id="voltaje_hs_2">
-                        <input type="number" id="voltaje_hs_3">
+                        <input type="number" id="voltaje_hs_r">
+                        <input type="number" id="voltaje_hs_s">
+                        <input type="number" id="voltaje_hs_t">
                     </div>
 
                     <div>
                         <label>Voltaje compresor LS (V):</label><br>
-                        <input type="number" id="voltaje_ls_1">
-                        <input type="number" id="voltaje_ls_2">
-                        <input type="number" id="voltaje_ls_3">
+                        <input type="number" id="voltaje_ls_r">
+                        <input type="number" id="voltaje_ls_s">
+                        <input type="number" id="voltaje_ls_t">
                     </div>
 
                     <div>
-                        <label>Voltaje a neutro (V):</label><br>
-                        <input type="number" id="to_ground">
-                    </div>
-
-                    <div>
-                        <label>Amperajes compresor HS (A):</label><br>
-                        <input type="number" id="current_hs_1">
-                        <input type="number" id="current_hs_2">
-                        <input type="number" id="current_hs_3">
+                        <label>Amperajes compresor HS (A):</label><br>               
+                        <div><label>T1*<input type="number"   id="current_hs_r" required></label></div>
+                        <div><label>T2*<input type="number"   id="current_hs_s" required></label></div>
+                        <div><label>T3*<input type="number"   id="current_hs_t" required></label></div>
                     </div>
 
                     <div>
                         <label>Amperajes compresor LS (A):</label><br>
-                        <input type="number" id="current_ls_1">
-                        <input type="number" id="current_ls_2">
-                        <input type="number" id="current_ls_3">
-                    </div>
-
-                    <div>
-                        <label>Amperajes circuladores (A):</label><br>
-                        <input type="number" id="current_circ_1">
-                        <input type="number" id="current_circ_2">
-                        <input type="number" id="current_circ_3">
+                        <div><label>T1*<input type="number"   id="current_ls_r" required></label></div>
+                        <div><label>T2*<input type="number"   id="current_ls_s" required></label></div>
+                        <div><label>T3*<input type="number"   id="current_ls_t" required></label></div>
                     </div>
 
                     <div>
                         <label>Amperajes heater (A):</label><br>
-                        <input type="number" id="current_heat_1">
-                        <input type="number" id="current_heat_2">
-                        <input type="number" id="current_heat_3">
+                        <input type="number" id="current_heat_r">
+                        <input type="number" id="current_heat_s">
+                        <input type="number" id="current_heat_t">
                     </div>
 
                     <div>
                         <label>Amperajes humidificador (A):</label><br>
-                        <input type="number" id="current_hum_1">
-                        <input type="number" id="current_hum_2">
-                        <input type="number" id="current_hum_3">
+                        <input type="number" id="current_hum_r">
+                        <input type="number" id="current_hum_s">
+                        <input type="number" id="current_hum_t">
                     </div>
 
                     <div>
                         <label>Presiones compresor HS:</label><br>
-                        <input type="number" id="pressures_hs_1">
-                        <input type="number" id="pressures_hs_2">
+                        <input type="number" id="pressures_hs_suction">
+                        <input type="number" id="pressures_hs_disch">
                         <label>Psi</label><br>
                     </div>
 
                     <div>
                         <label>Presiones compresor LS:</label><br>
-                        <input type="number" id="pressures_ls_1">
-                        <input type="number" id="pressures_ls_2">
+                        <input type="number" id="pressures_ls_suction">
+                        <input type="number" id="pressures_ls_disch">
                         <label>Psi</label><br>
                     </div>
                 </div>
@@ -215,12 +228,12 @@
             <div class="section-header"><strong>7 – Pruebas</strong></div>
             <div class="grid">
                 <div><label>Temp. ambiente (°C):</label><input type="text" id="hum_from"></div>
-                <div><label>Punto máximo -10 (°C):</label><input type="text" id="hum_target"></div>
+                <div><label>Punto máximo -10 (°C):</label><input type="text" id="heat_target"></div>
                 <label><input type="checkbox" id="heat_test_ok">Prueba de calentamiento (soak 30 min)</label>
                 <div><label>Punto máximo -10 (°C):</label><input type="text" id="temp_hig"></div>
                 <div><label>Punto máximo +10 (°C):</label><input type="text" id="temp_low"></div>
                 <label><input type="checkbox" id="cold_test_ok">Prueba de enfriamiento (soak 30 min)</label>
-                <div><label>Duración (min):</label><input type="text" id="pulldown"></div>
+                <div><label>Presión máxima:(Psi)</label><input type="text" id="pulldown"></div>
                 <label><input type="checkbox">Setear a valores propios para la humedad</label>                
                 <div><label>Humedad baja (20 %HR):</label><input type="text" id="hum_low"></div>
                 <div><label>Humedad alta (80 %HR):</label><input type="text" id="hum_hig"></div>
