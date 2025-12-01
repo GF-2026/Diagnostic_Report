@@ -4,7 +4,7 @@
 // ======================
 let records = JSON.parse(localStorage.getItem('records') || '[]');
 let currentSignatureTarget = null; // 'esp' o 'cus'
-const enableDeleteButton = false;   // true = activo, false = desactivado
+const enableDeleteButton = true;   // true = activo, false = desactivado
 const storageKey = 'records';
 let estados = { 1: '', 2: '', 3: '' }; // 👈 estados de semáforos
 // ======================
@@ -48,13 +48,6 @@ function getSignatureData(id) {
 }
 
 
-// 🔹 NUEVA FUNCIÓN: devuelve el valor seleccionado de un grupo de radios
-function estado(name) {
-  const seleccionado = document.querySelector(`input[name="${name}"]:checked`);
-  return seleccionado ? seleccionado.value : '';
-}
-
-
 // ======================
 // FOLIO AUTOMÁTICO
 // ======================
@@ -63,7 +56,7 @@ function generateFolio(){
     const now = new Date();
     const y = now.getFullYear(), m = String(now.getMonth()+1).padStart(2,'0'), d = String(now.getDate()).padStart(2,'0');
     const h = String(now.getHours()).padStart(2,'0'), min = String(now.getMinutes()).padStart(2,'0');
-    return `Diagnóstic_Report-${company}-${y}${m}${d}-${h}${min}`;
+    return `Sartup_Report-${company}-${y}${m}${d}-${h}${min}`;
 }
 
 // ======================
@@ -440,7 +433,7 @@ document.getElementById('exportBtn').addEventListener('click', ()=>{
     const ws = XLSX.utils.json_to_sheet(records);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Preventive_reports.xlsx');
+    XLSX.writeFile(wb, 'Startup_reports.xlsx');
 });
 
 // ======================
@@ -546,17 +539,39 @@ canvas.addEventListener('touchmove', e => {
     ctx.stroke();
 }, false);
 const seccion = document.getElementById('section-headerx');
-// Sección de semáforos
-function setEstado(num, color) {
-  const colores = ['roja', 'amarilla', 'verde'];
-  colores.forEach(c => {
-    document.getElementById(c + num)?.classList.remove('activa');
-  });
-  document.getElementById(color + num)?.classList.add('activa');
+// ======================
+// SEMÁFOROS
+// ======================
 
-  // 🔄 Guardar el valor seleccionado en el objeto estados
-  estados[num] = color;
+// Cambia el estado visual del semáforo correspondiente
+function setEstado(num, color) {
+    const colores = ['roja', 'amarilla', 'verde'];
+
+    // Quitar todas
+    colores.forEach(c => {
+        const el = document.getElementById(c + num);
+        if (el) el.classList.remove('activa');
+    });
+
+    // Activar la seleccionada
+    const target = document.getElementById(color + num);
+    if (target) target.classList.add('activa');
+
+    // Guardar estado en variable global
+    estados[num] = color;
 }
+
+// Conectar radio-buttons → semáforos
+['1','2','3'].forEach(num => {
+    ['roja','amarilla','verde'].forEach(color => {
+        const radio = document.getElementById(color + '_radio_' + num);
+        if (radio) {
+            radio.addEventListener('change', () => {
+                if (radio.checked) setEstado(num, color);
+            });
+        }
+    });
+});
 
 function verProximoServicio() {
   const seleccionado = document.querySelector('input[name="proximo_servicio"]:checked');
@@ -570,7 +585,7 @@ function verProximoServicio() {
 }
 document.getElementById('sendEmailBtn').addEventListener('click', () => {
   const to = "tck@olimp0.com";
-  const subject = encodeURIComponent("Nuevo reporte de Diagnóstico");
+  const subject = encodeURIComponent("Nuevo reporte de arranque");
 
   const company = get('company');
   const folio = generateFolio('folio');
@@ -581,8 +596,8 @@ document.getElementById('sendEmailBtn').addEventListener('click', () => {
 
   // 💡 Usamos HTML con <br> para asegurar formato visible en BlueMail
   const htmlBody =
-`Hola!<br><br>
-Tienes un nuevo reporte de Diagnóstico:<br><br>
+`Hola,<br><br>
+Tienes un nuevo reporte preventivo:<br><br>
 <strong>Folio:</strong> ${folio}<br>
 <strong>Empresa:</strong> ${company}<br>
 <strong>Modelo:</strong> ${model}<br>
@@ -598,3 +613,4 @@ Gracias.`;
   const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
   window.location.href = mailtoLink;
 });
+
