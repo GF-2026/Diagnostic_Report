@@ -56,7 +56,7 @@ function generateFolio(){
     const now = new Date();
     const y = now.getFullYear(), m = String(now.getMonth()+1).padStart(2,'0'), d = String(now.getDate()).padStart(2,'0');
     const h = String(now.getHours()).padStart(2,'0'), min = String(now.getMinutes()).padStart(2,'0');
-    return `Sartup_Report-${company}-${y}${m}${d}-${h}${min}`;
+    return `Preventive_Report-${company}-${y}${m}${d}-${h}${min}`;
 }
 
 // ======================
@@ -230,7 +230,11 @@ voltaje_hs_s: get('voltaje_hs_s'),
 voltaje_hs_t: get('voltaje_hs_t'),
 voltaje_ls_r: get('voltaje_ls_r'),
 voltaje_ls_s: get('voltaje_ls_s'),
-voltaje_ls_t: get('voltaje_ls_t')
+voltaje_ls_t: get('voltaje_ls_t'),
+estado_ref: get('estado_ref'),
+estado_heat: get('estado_heat'),
+estado_elec: get('estado_elec'),
+resultado_servicio: get('resultado_servicio')
 };
 
   records.push(record);
@@ -251,13 +255,6 @@ document.getElementById('clearBtn').addEventListener('click', ()=>{
     if (espCtx) espCtx.clearRect(0,0,300,150);
     if (cusCtx) cusCtx.clearRect(0,0,300,150);
 });
-  // 🔄 Reset semáforos
-  estados = { 1: '', 2: '', 3: '' };
-  ['1','2','3'].forEach(num => {
-    ['roja','amarilla','verde'].forEach(c => 
-      document.getElementById(c + num)?.classList.remove('activa')
-    );
-  });
 // ======================
 // RENDER TABLA
 // ======================
@@ -433,7 +430,7 @@ document.getElementById('exportBtn').addEventListener('click', ()=>{
     const ws = XLSX.utils.json_to_sheet(records);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Startup_reports.xlsx');
+    XLSX.writeFile(wb, 'Preventive_reports.xlsx');
 });
 
 // ======================
@@ -539,39 +536,6 @@ canvas.addEventListener('touchmove', e => {
     ctx.stroke();
 }, false);
 const seccion = document.getElementById('section-headerx');
-// ======================
-// SEMÁFOROS
-// ======================
-
-// Cambia el estado visual del semáforo correspondiente
-function setEstado(num, color) {
-    const colores = ['roja', 'amarilla', 'verde'];
-
-    // Quitar todas
-    colores.forEach(c => {
-        const el = document.getElementById(c + num);
-        if (el) el.classList.remove('activa');
-    });
-
-    // Activar la seleccionada
-    const target = document.getElementById(color + num);
-    if (target) target.classList.add('activa');
-
-    // Guardar estado en variable global
-    estados[num] = color;
-}
-
-// Conectar radio-buttons → semáforos
-['1','2','3'].forEach(num => {
-    ['roja','amarilla','verde'].forEach(color => {
-        const radio = document.getElementById(color + '_radio_' + num);
-        if (radio) {
-            radio.addEventListener('change', () => {
-                if (radio.checked) setEstado(num, color);
-            });
-        }
-    });
-});
 
 function verProximoServicio() {
   const seleccionado = document.querySelector('input[name="proximo_servicio"]:checked');
@@ -585,7 +549,7 @@ function verProximoServicio() {
 }
 document.getElementById('sendEmailBtn').addEventListener('click', () => {
   const to = "tck@olimp0.com";
-  const subject = encodeURIComponent("Nuevo reporte de arranque");
+  const subject = encodeURIComponent("Nuevo reporte preventivo");
 
   const company = get('company');
   const folio = generateFolio('folio');
