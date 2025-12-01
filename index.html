@@ -239,74 +239,52 @@
                 <div><label>Humedad alta (80 %HR):</label><input type="text" id="hum_hig"></div>
                 <label><input type="checkbox" id="hum_test_ok">Prueba de humedad (soak 30 min c/u)</label>
             </div>
-                        <hr>
-            <div class="section-header"><strong>8 – Indicadores de Salud</strong></div>
-<!-- Semáforo 1 -->
-<div class="seccion">
-  <div class="titulo">Salud del sistema de Refrigeración</div>
-  <div class="semaforo" id="sema_ref">
-    <div class="luz roja" id="roja1"></div>
-    <div class="luz amarilla" id="amarilla1"></div>
-    <div class="luz verde" id="verde1"></div>
-  </div>
-  <div class="botones">
-    <button type="button" onclick="setEstado('1','roja')">Falla</button>
-    <button type="button" onclick="setEstado('1','amarilla')">Atención</button>
-    <button type="button" onclick="setEstado('1','verde')">OK</button>
-  </div>
-</div>
-
-<!-- Semáforo 2 -->
-<div class="seccion">
-  <div class="titulo">Salud del sistema de Calefacción</div>
-  <div class="semaforo" id="sema_heat">
-    <div class="luz roja" id="roja2"></div>
-    <div class="luz amarilla" id="amarilla2"></div>
-    <div class="luz verde" id="verde2"></div>
-  </div>
-  <div class="botones">
-    <button type="button" onclick="setEstado('2','roja')">Falla</button>
-    <button type="button" onclick="setEstado('2','amarilla')">Atención</button>
-    <button type="button" onclick="setEstado('2','verde')">OK</button>
-  </div>
-</div>
-
-<!-- Semáforo 3 -->
-<div class="seccion">
-  <div class="titulo">Salud del sistema Eléctrico</div>
-  <div class="semaforo" id="sema_elec">
-    <div class="luz roja" id="roja3"></div>
-    <div class="luz amarilla" id="amarilla3"></div>
-    <div class="luz verde" id="verde3"></div>
-  </div>
-  <div class="botones">
-    <button type="button" onclick="setEstado('3','roja')">Falla</button>
-    <button type="button" onclick="setEstado('3','amarilla')">Atención</button>
-    <button type="button" onclick="setEstado('3','verde')">OK</button>
-  </div>
+<hr>
+<div class="section-header"><strong>8 – Salud del sistema</strong></div>
+        <div class="grid">
+                <div>      
+                    <label>¿Qué Semáforo de salud tiene el sistema de Refrigeración?</label><br> 
+                    <select id="estado_ref">
+                    <option value="">Seleccione...</option>
+                    <option value="rojo">Rojo</option>
+                    <option value="amarillo">Amarillo</option>
+                    <option value="verde">Verde</option>
+                    </select>
+                </div>        
+                <div>
+                    <label>¿Qué Semáforo de salud tiene el sistema de Calefacción?</label><br> 
+                    <select id="estado_heat">
+                    <option value="">Seleccione...</option>
+                    <option value="rojo">Rojo</option>
+                    <option value="amarillo">Amarillo</option>
+                    <option value="verde">Verde</option>
+                    </select>
+                </div>
+                <div>
+                    <label>¿Qué Semáforo de salud tiene el sistema Eléctrico?</label><br> 
+                    <select id="estado_elec">
+                    <option value="">Seleccione...</option>
+                    <option value="rojo">Rojo</option>
+                    <option value="amarillo">Amarillo</option>
+                    <option value="verde">Verde</option>
+                    </select>
+                </div>
+        </div>
 </div>
 <!-- 9 – Observaciones -->
 <!-- Pregunta: ¿Cuándo se sugiere el siguiente servicio? -->
-<div class="pregunta">
-  <p><strong>¿Cuándo se sugiere el siguiente servicio?</strong></p>
-
-  <label class="opcion verde">
-    <input type="radio" name="proximo_servicio" value="En 3 meses"> En 3 meses
-  </label>
-
-  <label class="opcion amarillo">
-    <input type="radio" name="proximo_servicio" value="En 6 meses"> En 6 meses
-  </label>
-
-  <label class="opcion rojo">
-    <input type="radio" name="proximo_servicio" value="En 1 año"> En 1 año
-  </label>
+<br>
+<hr>
+<div class="section-header"><strong>9 – ¿Cuándo se sugiere el siguiente servicio?</strong></div>
+    <div class="grid">
+<select id="resultado_servicio">
+  <option value="">Seleccione...</option>
+  <option value="3 meses"> En 3 meses</option>
+  <option value="6 meses">En 6 meses</option>
+  <option value="1 año">En 1 año</option>
+</select>
 </div>
-
-<!-- Botón para probar el resultado -->
-<!--<button type="button" onclick="verProximoServicio()">Ver resultado</button>-->
-
-<p id="resultado_servicio"></p>
+</div>
 <hr>
             <div class="section-header"><strong>9 - Falla Reportada o diagnósticada</strong></div>
             <div class="fullwidth"><textarea id="fail_work"></textarea></label></div><br>
