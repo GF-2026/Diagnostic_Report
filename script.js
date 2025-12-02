@@ -31,6 +31,23 @@ function chk(id) {
     if (!el) return '0';              // Si no existe, devuelve 0
     return el.checked ? '1' : '0';   // Si existe, devuelve '1' o '0'
 }
+window.addEventListener('DOMContentLoaded', () => {
+    resetSemaforos();
+});
+
+function resetSemaforos() {
+    const selects = [
+        'estado_ref',
+        'estado_heat',
+        'estado_elec',
+        'resultado_servicio'
+    ];
+
+    selects.forEach(id => {
+        const sel = document.getElementById(id);
+        if (sel) sel.value = "";
+    });
+}
 
 // Obtener valor de un grupo de radio buttons de forma segura
 function estado(name) {
@@ -254,6 +271,7 @@ document.getElementById('clearBtn').addEventListener('click', ()=>{
     const cusCtx = document.getElementById('signaturePreviewCus')?.getContext('2d');
     if (espCtx) espCtx.clearRect(0,0,300,150);
     if (cusCtx) cusCtx.clearRect(0,0,300,150);
+    resetSemaforos();
 });
 // ======================
 // RENDER TABLA
