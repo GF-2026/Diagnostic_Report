@@ -263,3 +263,53 @@ hr {
   .verde { background: #2ecc71; }
   .amarillo { background: #f1c40f; color: black; }
   .rojo { background: #e74c3c; }
+
+/* --- ESTILO DEL SELECT PRINCIPAL --- */
+.custom-select .select-styled {
+  /* 1. Resetear apariencia nativa */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* 2. Propiedades visuales */
+  display: block;
+  width: 100%;
+  padding: 12px 40px 12px 15px; /* Más padding a la derecha para la flecha */
+  line-height: 1.5;
+  font-size: 16px;
+  cursor: pointer;
+  
+  /* >>> ESTILOS SOLICITADOS <<< */
+  /* Fondo */
+  background-color: #e6f7ff; /* Azul muy claro para el fondo */
+  /* Borde Azul */
+  border: 2px solid #007bff; 
+  /* Esquinas Redondeadas */
+  border-radius: 10px; 
+  /* Color de texto */
+  color: #333;
+}
+
+/* --- FLECHA PERSONALIZADA (Triángulo hacia abajo) --- */
+.custom-select::after {
+  content: "▾"; /* Carácter de flecha sutil */
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%); 
+  pointer-events: none; /* Permite hacer clic en el select */
+  color: #007bff; /* Color azul para la flecha */
+  font-size: 18px;
+}
+
+/* --- ESTILOS DE INTERACCIÓN (Hover y Focus) --- */
+.custom-select .select-styled:hover {
+  background-color: #cceeff; /* Un azul claro un poco más oscuro al pasar el ratón */
+}
+
+.custom-select .select-styled:focus {
+  outline: none; /* Eliminar el contorno por defecto */
+  border-color: #0056b3; /* Borde más oscuro al enfocarse */
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
+}
+
