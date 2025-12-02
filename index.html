@@ -240,35 +240,43 @@
                 <label><input type="checkbox" id="hum_test_ok">Prueba de humedad (soak 30 min c/u)</label>
             </div>
 <hr>
-<div class="section-header"><strong>8 – Salud del sistema</strong></div>
-        <div class="grid">
-                <div>      
-                    <label>¿Qué Semáforo de salud tiene el sistema de Refrigeración?</label><br> 
-                    <select id="estado_ref">
-                    <option value="">Seleccione...</option>
-                    <option value="rojo">Rojo</option>
-                    <option value="amarillo">Amarillo</option>
-                    <option value="verde">Verde</option>
-                    </select>
-                </div>        
-                <div>
-                    <label>¿Qué Semáforo de salud tiene el sistema de Calefacción?</label><br> 
-                    <select id="estado_heat">
-                    <option value="">Seleccione...</option>
-                    <option value="rojo">Rojo</option>
-                    <option value="amarillo">Amarillo</option>
-                    <option value="verde">Verde</option>
-                    </select>
-                </div>
-                <div>
-                    <label>¿Qué Semáforo de salud tiene el sistema Eléctrico?</label><br> 
-                    <select id="estado_elec">
-                    <option value="">Seleccione...</option>
-                    <option value="rojo">Rojo</option>
-                    <option value="amarillo">Amarillo</option>
-                    <option value="verde">Verde</option>
-                    </select>
-                </div>
+<div class="section-header"><strong>8 – Salud del equipo</strong></div>
+<div class="custom-select">
+<div>
+    <label>¿Qué Semáforo de salud tiene el sistema de Refrigeración?</label><br> 
+    <div class="custom-select"> 
+        <select id="estado_ref" class="select-styled">
+            <option value="" disabled selected>Seleccione...</option>
+            <option value="rojo">Rojo</option>
+            <option value="amarillo">Amarillo</option>
+            <option value="verde">Verde</option>
+        </select>
+    </div>
+</div>
+
+<div>
+    <label>¿Qué Semáforo de salud tiene el sistema de Calefacción?</label><br> 
+    <div class="custom-select"> 
+        <select id="estado_heat" class="select-styled">
+            <option value="" disabled selected>Seleccione...</option>
+            <option value="rojo">Rojo</option>
+            <option value="amarillo">Amarillo</option>
+            <option value="verde">Verde</option>
+        </select>
+    </div>
+</div>
+
+<div>
+    <label>¿Qué Semáforo de salud tiene el sistema Eléctrico?</label><br> 
+    <div class="custom-select"> 
+        <select id="estado_elec" class="select-styled">
+            <option value="" disabled selected>Seleccione...</option>
+            <option value="rojo">Rojo</option>
+            <option value="amarillo">Amarillo</option>
+            <option value="verde">Verde</option>
+        </select>
+    </div>
+</div>
         </div>
 </div>
 <!-- 9 – Observaciones -->
@@ -276,17 +284,16 @@
 <br>
 <hr>
 <div class="section-header"><strong>9 – ¿Cuándo se sugiere el siguiente servicio?</strong></div>
-    <div class="grid">
-<select id="resultado_servicio">
-  <option value="">Seleccione...</option>
-  <option value="3 meses"> En 3 meses</option>
-  <option value="6 meses">En 6 meses</option>
-  <option value="1 año">En 1 año</option>
-</select>
-</div>
+<div class="custom-select"> 
+  <select class="select-styled" id="resultado_servicio">
+    <option value="" disabled selected>Seleccione...</option>
+    <option value="3 meses">En 3 meses</option>
+    <option value="6 meses">En 6 meses</option>
+    <option value="1 año">En 1 año</option>
+  </select>
 </div>
 <hr>
-            <div class="section-header"><strong>9 - Falla Reportada o diagnósticada</strong></div>
+            <div class="section-header"><strong>10 - Falla Reportada o diagnósticada</strong></div>
             <div class="fullwidth"><textarea id="fail_work"></textarea></label></div><br>
             <div class="section-header"><label><strong>10 - Actividades realizadas:*<br></strong></label></div>
             <div class="fullwidth"><textarea id="act_work"></textarea></label></div><br>
