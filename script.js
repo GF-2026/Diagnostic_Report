@@ -56,7 +56,7 @@ function generateFolio(){
     const now = new Date();
     const y = now.getFullYear(), m = String(now.getMonth()+1).padStart(2,'0'), d = String(now.getDate()).padStart(2,'0');
     const h = String(now.getHours()).padStart(2,'0'), min = String(now.getMinutes()).padStart(2,'0');
-    return `Preventive_Report-${company}-${y}${m}${d}-${h}${min}`;
+    return `Diagnostic_Report-${company}-${y}${m}${d}-${h}${min}`;
 }
 
 // ======================
@@ -430,7 +430,7 @@ document.getElementById('exportBtn').addEventListener('click', ()=>{
     const ws = XLSX.utils.json_to_sheet(records);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
-    XLSX.writeFile(wb, 'Preventive_reports.xlsx');
+    XLSX.writeFile(wb, 'Diagnostic_reports.xlsx');
 });
 
 // ======================
@@ -549,7 +549,7 @@ function verProximoServicio() {
 }
 document.getElementById('sendEmailBtn').addEventListener('click', () => {
   const to = "tck@olimp0.com";
-  const subject = encodeURIComponent("Nuevo reporte preventivo");
+  const subject = encodeURIComponent("Nuevo reporte de Diagnóstico");
 
   const company = get('company');
   const folio = generateFolio('folio');
@@ -561,7 +561,7 @@ document.getElementById('sendEmailBtn').addEventListener('click', () => {
   // 💡 Usamos HTML con <br> para asegurar formato visible en BlueMail
   const htmlBody =
 `Hola,<br><br>
-Tienes un nuevo reporte preventivo:<br><br>
+Tienes un nuevo reporte de Diagnóstico:<br><br>
 <strong>Folio:</strong> ${folio}<br>
 <strong>Empresa:</strong> ${company}<br>
 <strong>Modelo:</strong> ${model}<br>
