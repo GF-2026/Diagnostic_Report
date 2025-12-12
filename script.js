@@ -297,6 +297,7 @@ function renderTable(){
 'ubication',
 'temperature',
 'humidity',
+'voltage_of_control',
 'voltage_L1',
 'voltage_L2',
 'voltage_L3',
