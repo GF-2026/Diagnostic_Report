@@ -7,6 +7,17 @@
     <title>REPORTE DE DIAGNOSTICO</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script>
+        const DEV_MODE = true;
+
+        if (DEV_MODE) {
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('input[type="checkbox"]').forEach(chk => {
+                    chk.checked = false;
+                });
+            });
+        }
+    </script>
 </head>
 
 <body>
@@ -25,339 +36,384 @@
                 <div class="muted">Campos obligatorios *</div>
             </div>
             <div class="grid">
-                <div><label>OT: *</label><input type="text" id="OT" required></div>
-                <div><label>Fecha y Hora: *</label><input type="datetime-local" id="datetime" required></div>
-                <div><label>Compañía:</label><input type="text" id="company"></div>
-                <div><label>Ingeniero a cargo:</label><input type="text" id="engineer"></div>
+                <div><label>OT: *</label><input type="text" id="OT" required class="special-box"></div>
+                <div><label>Fecha y Hora: *</label><input type="datetime-local" id="datetime" required class="special-box"></div>
+                <div><label>Compañía:</label><input type="text" id="company" required class="special-box"></div>
+                <div><label>Ingeniero a cargo:</label><input type="text" id="engineer" required class="special-box"></div>
                 <div><label>Teléfono:</label><input type="text" id="phone"></div>
-                <div><label>Ciudad:</label><input type="text" id="city"></div>
+                <div><label>Ciudad:</label><input type="text" id="city" required class="special-box"></div>
             </div>
 
             <!-- 2 – Datos del equipo -->
             <hr>
             <div class="section-header"><strong>2 – Datos del equipo</strong></div>
             <div class="grid">
-                <div><label>Descripción:</label><input type="text" id="description"></div>
-                <div><label>Marca:</label><input type="text" id="brand"></div>
-                <div><label>Modelo:</label><input type="text" id="model"></div>
-                <div><label>Serie:</label><input type="text" id="serial"></div>
-                <div><label>Número de control:</label><input type="text" id="controlnum"></div>
-                <div><label>'Está disponible el equipo?</label><input type="text" id="status_test"></div>
+                <div><label>Descripción:</label><input type="text" id="description" required class="special-box"></div>
+                <div><label>Marca:</label><input type="text" id="brand" required class="special-box"></div>
+                <div><label>Modelo:</label><input type="text" id="model" required class="special-box"></div>
+                <div><label>Serie:</label><input type="text" id="serial" required class="special-box"></div>
+                <div><label>Número de control:</label><input type="text" id="controlnum" required class="special-box"></div>
+                <div><label>'Está disponible el equipo?</label><input type="text" id="status_test" required class="special-box"></div>
             </div>
 
             <!-- 3 – Condiciones ambientales -->
             <hr>
             <div class="section-header"><strong>3 – Condiciones ambientales</strong></div>
             <div class="grid">
-                <div class="fullwidth"><label>Ubicación dentro de la planta:</label><input type="text" id="ubication">
+                <div class="fullwidth"><label>Ubicación dentro de la planta:</label><input type="text" id="ubication" required class="special-box">
                 </div>
-                <div><label>Temperatura (°C):</label><input type="number" step="0.1" id="temperature"></div>
+                <div><label>Temperatura (°C):</label><input type="number" step="0.1" id="temperature"required class="special-box"></div>
                 <div><label>Humedad (%):</label><input type="number" step="0.1" id="humidity"></div>
             </div>
             <!-- 4 – Mediciones -->
             <hr>
             <div class="section-header"><strong>4 – Mediciones</strong></div>
             <div class="grid">
-                <div class="mediciones">
-                    <div>
-                         <label>Presión Estática LS:*</label><br>
-                        <input type="number" step="1" id="static_ls" required>
-                        <label>Psi</label><br>
-                    </div>
+                    <div class="mediciones">
+                        <div>
+                            <label>Presión Estática LS:*</label><br>
+                            <input type="number" step="1" id="static_ls" required class="special-box">
+                            <label>Psi</label><br>
+                        </div>
 
-                    <div>
-                        <label>Presión Estática HS:*</label><br>
-                        <input type="number" step="1" id="static_hs" required>
-                        <label>Psi</label><br>
-                    </div>
+                        <div>
+                            <label>Presión Estática HS:*</label><br>
+                            <input type="number" step="1" id="static_hs" required class="special-box">
+                            <label>Psi</label><br>
+                        </div>
 
-                    <div>
-                        <label>Resistencia compresor HS (Ω):</label><br>
-                        <div><label>T1-T2*<input type="number"   id="resistance_hs_rs" required></label></div>
-                        <div><label>T1-T3*<input type="number"   id="resistance_hs_rt" required></label></div>
-                        <div><label>T2-T3*<input type="number"   id="resistance_hs_st" required></label></div>
-                    </div>
-                    
-                    <div>
-                        <label>A tierra:*</label><br>
-                        <input type="number" id="resistance_hs_to_ground" required>
-                    </div>
-                    
-                    <div>
-                        <label>Resistencia compresor LS (Ω):</label><br>
-                        <input type="number" step="0.1" id="resistance_ls_rs">
-                        <input type="number" step="0.1" id="resistance_ls_rt">
-                        <input type="number" step="0.1" id="resistance_ls_st">
-                    </div>
-                    
-                    <div>
-                        <label>A tierra:*</label><br>
-                        <input type="number" id="resistance_ls_to_ground" required>
-                    </div>
+                        <div>
+                            <label>Resistencia compresor HS o 1er compresor (Ω):</label><br>
+                            <div><label>T1-T2*<input type="number" id="resistance_hs_rs" required class="special-box"></label></div>
+                            <div><label>T1-T3*<input type="number" id="resistance_hs_rt" required class="special-box"></label></div>
+                            <div><label>T2-T3*<input type="number" id="resistance_hs_st" required class="special-box"></label></div>
+                        </div>
 
-                    <div>
-                        <label>Resistencia circulador (Ω):*</label><br>
-                        <input type="number"   id="resistance_circ_rs" required>
-                        <input type="number"   id="resistance_circ_rt">
-                        <input type="number"   id="resistance_circ_st">
-                    </div>
-                    
-                    <div>
-                        <label>A tierra:*</label><br>
-                        <input type="number" id="resistance_circs_to_ground" required>
-                    </div>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_hs_to_ground" required class="special-box">
+                        </div>
 
-                    <div>
-                        <label>Resistencia heater (Ω):</label><br>
-                        <div><label>H1-H2*<input type="number"   id="resistance_heat_rs" required></label></div>
-                        <div><label>H1-H3*<input type="number"   id="resistance_heat_rt" required></label></div>
-                        <div><label>H2-H3*<input type="number"   id="resistance_heat_st" required></label></div> 
-                    </div>
-                    
-                    <div>
-                        <label>A tierra:*</label><br>
-                        <input type="number" id="resistance_heats_to_ground" required>
-                    </div>
+                        <div>
+                            <label>Resistencia compresor LS o 2do compresor(Ω):</label><br>
+                            <div><label>T1-T2*<input type="number" id="resistance_ls_rs" required class="special-box"></label></div>
+                            <div><label>T1-T3*<input type="number" id="resistance_ls_rt" required class="special-box"></label></div>
+                            <div><label>T2-T3*<input type="number" id="resistance_ls_st" required class="special-box"></label></div>
+                        </div>
 
-                    <div>
-                        <label>Resistencia humidificador (Ω):</label><br>
-                        <input type="number" step="0.1" id="resistance_hum_rs">
-                        <input type="number" step="0.1" id="resistance_hum_rt">
-                        <input type="number" step="0.1" id="resistance_hum_st">
-                    </div>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_ls_to_ground" required class="special-box">
+                        </div>
 
-                    <div>
-                        <label>A tierra:</label><br>
-                        <input type="number" id="resistance_hums_to_ground">
-                    </div>
 
-                    <div>
-                        <label>Voltaje compresor HS (V):</label><br>
-                        <input type="number" id="voltaje_hs_r">
-                        <input type="number" id="voltaje_hs_s">
-                        <input type="number" id="voltaje_hs_t">
-                    </div>
+                        <div>
+                            <label>Resistencia heater 1 (Ω):</label><br>
+                            <div><label>H1-H2*<input type="number" id="resistance_heat1_rs"  required class="special-box"></label></div>
+                            <div><label>H1-H3*<input type="number" id="resistance_heat1_rt"  required class="special-box"></label></div>
+                            <div><label>H2-H3*<input type="number" id="resistance_heat1_st"  required class="special-box"></label></div>
+                        </div>
 
-                    <div>
-                        <label>Voltaje compresor LS (V):</label><br>
-                        <input type="number" id="voltaje_ls_r">
-                        <input type="number" id="voltaje_ls_s">
-                        <input type="number" id="voltaje_ls_t">
-                    </div>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_heat1_to_ground" required class="special-box">
+                        </div>
 
-                    <div>
-                        <label>Amperajes compresor HS (A):</label><br>               
-                        <div><label>T1*<input type="number"   id="current_hs_r" required></label></div>
-                        <div><label>T2*<input type="number"   id="current_hs_s" required></label></div>
-                        <div><label>T3*<input type="number"   id="current_hs_t" required></label></div>
-                    </div>
 
-                    <div>
-                        <label>Amperajes compresor LS (A):</label><br>
-                        <div><label>T1*<input type="number"   id="current_ls_r" required></label></div>
-                        <div><label>T2*<input type="number"   id="current_ls_s" required></label></div>
-                        <div><label>T3*<input type="number"   id="current_ls_t" required></label></div>
-                    </div>
+                        <div>
+                            <label>Resistencia heater 2 (Ω):</label><br>
+                            <div><label>H1-H2*<input type="number" id="resistance_heat2_rs"></label></div>
+                            <div><label>H1-H3*<input type="number" id="resistance_heat2_rt"></label></div>
+                            <div><label>H2-H3*<input type="number" id="resistance_heat2_st"></label></div>
+                        </div>
 
-                    <div>
-                        <label>Amperajes heater (A):</label><br>
-                        <input type="number" id="current_heat_r">
-                        <input type="number" id="current_heat_s">
-                        <input type="number" id="current_heat_t">
-                    </div>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_heat2_to_ground">
+                        </div>
 
-                    <div>
-                        <label>Amperajes humidificador (A):</label><br>
-                        <input type="number" id="current_hum_r">
-                        <input type="number" id="current_hum_s">
-                        <input type="number" id="current_hum_t">
-                    </div>
 
-                    <div>
-                        <label>Presiones compresor HS:</label><br>
-                        <input type="number" id="pressures_hs_suction">
-                        <input type="number" id="pressures_hs_disch">
-                        <label>Psi</label><br>
-                    </div>
+                        <div>
+                            <label>Resistencia heater 3 (Ω):</label><br>
+                            <div><label>H1-H2*<input type="number" id="resistance_heat3_rs"></label></div>
+                            <div><label>H1-H3*<input type="number" id="resistance_heat3_rt"></label></div>
+                            <div><label>H2-H3*<input type="number" id="resistance_heat3_st"></label></div>
+                        </div>
 
-                    <div>
-                        <label>Presiones compresor LS:</label><br>
-                        <input type="number" id="pressures_ls_suction">
-                        <input type="number" id="pressures_ls_disch">
-                        <label>Psi</label><br>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_heat3_to_ground"></div>
+
+                        <div>
+                            <label>Resistencia humidificador 1(Ω):</label><br>
+                            <input type="number" step="0.1" id="resistance_hum1_rs"></div>
+
+                        <div>
+                            <label>A tierra:</label><br>
+                            <input type="number" id="resistance_hum1_to_ground"></div>
+
+                        <div>
+                            <label>Resistencia humidificador 2 (Ω):</label><br>
+                            <input type="number" step="0.1" id="resistance_hum2_rs"></div>
+
+                        <div>
+                            <label>A tierra:</label><br>
+                            <input type="number" id="resistance_hum2_to_ground"></div>
+
+                        <div>
+                            <label>Resistencia circulador 1 (Ω):*</label><br>
+                            <input type="number" id="resistance_circ1_rs" required class="special-box">
+                            <input type="number" id="resistance_circ1_rt" required class="special-box">
+                            <input type="number" id="resistance_circ1_st" required class="special-box">
+                        </div>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_circ1_to_ground" required class="special-box">
+                        </div>
+
+                        <div>
+                            <label>Resistencia circulador 2 (Ω):*</label><br>
+                            <input type="number" id="resistance_circ2_rs">
+                            <input type="number" id="resistance_circ2_rt">
+                            <input type="number" id="resistance_circ2_st">
+                        </div>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_circ2_to_ground">
+                        </div>
+
+                        <div>
+                            <label>Resistencia circulador 3 (Ω):*</label><br>
+                            <input type="number" id="resistance_circ3_rs">
+                            <input type="number" id="resistance_circ3_rt">
+                            <input type="number" id="resistance_circ3_st">
+                        </div>
+                        <div>
+                            <label>A tierra:*</label><br>
+                            <input type="number" id="resistance_circ3_to_ground">
+                        </div>
+
+
+                        <div>
+                            <label>Amperajes compresor HS o 1er compresor(A):</label><br>
+                            <div><label>T1*<input type="number" id="current_hs_r" required class="special-box"></label>
+                            </div>
+                            <div><label>T2*<input type="number" id="current_hs_s" required class="special-box"></label>
+                            </div>
+                            <div><label>T3*<input type="number" id="current_hs_t" required class="special-box"></label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Amperajes compresor LS o 2do compresor(A):</label><br>
+                            <div><label>T1*<input type="number" id="current_ls_r" required class="special-box"></label>
+                            </div>
+                            <div><label>T2*<input type="number" id="current_ls_s" required class="special-box"></label>
+                            </div>
+                            <div><label>T3*<input type="number" id="current_ls_t" required class="special-box"></label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Amperajes compresor HS monofásico o 1er compresor(A):</label><br>
+                            <div><label>C <input type="number" id="current_hs_mono_c"></label></div>
+                            <div><label>R <input type="number" id="current_hs_mono_r"></label></div>
+                        </div>
+
+                        <div>
+                            <label>Amperajes compresor LS monofásico o 2do compresor(A):</label><br>
+                            <div><label>C <input type="number" id="current_ls_mono_c"></label></div>
+                            <div><label>R <input type="number" id="current_ls_mono_r"></label></div>
+                        </div>
+
+                        <div>
+                            <label>Amperajes circuladores 1 (A):</label><br>
+                            <input type="number" id="current_circ1_r" required class="special-box">
+                            <input type="number" id="current_circ1_s" required class="special-box">
+                            <input type="number" id="current_circ1_t" required class="special-box">
+                        </div>
+
+                        <div>
+                            <label>Amperajes circuladores 2 (A):</label><br>
+                            <input type="number" id="current_circ2_r">
+                            <input type="number" id="current_circ2_s">
+                            <input type="number" id="current_circ2_t">
+                        </div>
+
+
+                        <div>
+                            <label>Amperajes circuladores 3 (A):</label><br>
+                            <input type="number" id="current_circ3_r">
+                            <input type="number" id="current_circ3_s">
+                            <input type="number" id="current_circ3_t">
+                        </div>
+
+                        <div>
+                            <label>Amperajes de head fan 1(A):</label><br>
+                            <input type="number" id="current_headfan1_r">
+                            <input type="number" id="current_headfan1_s">
+                            <input type="number" id="current_headfan1_t">
+                        </div>
+
+                        <div>
+                            <label>Amperajes de head fan 2(A):</label><br>
+                            <input type="number" id="current_headfan2_r">
+                            <input type="number" id="current_headfan2_s">
+                            <input type="number" id="current_headfan2_t">
+                        </div>
+
+                        <div>
+                            <label>Amperajes de Condensador 1 (A):</label><br>
+                            <input type="number" id="current_cond1_fan_r" required class="special-box">
+                            <input type="number" id="current_cond1_fan_s" required class="special-box">
+                            <input type="number" id="current_cond1_fan_t" required class="special-box">
+                        </div>
+
+                        <div>
+                            <label>Amperajes de Condensador 2 (A):</label><br>
+                            <input type="number" id="current_cond2_fan_r">
+                            <input type="number" id="current_cond2_fan_s">
+                            <input type="number" id="current_cond2_fan_t">
+                        </div>
+
+                        <div>
+                            <label>Amperajes de Condensador 3 (A):</label><br>
+                            <input type="number" id="current_cond3_fan_r">
+                            <input type="number" id="current_cond3_fan_s">
+                            <input type="number" id="current_cond3_fan_t">
+                        </div>
+
+                        <div>
+                            <label>Amperajes heater 1 (A):</label><br>
+                            <input type="number" id="current_heat1_r" required class="special-box">
+                            <input type="number" id="current_heat1_s" required class="special-box">
+                            <input type="number" id="current_heat1_t" required class="special-box">
+                        </div>
+
+                        <div>
+                            <label>Amperajes heater 2 (A):</label><br>
+                            <input type="number" id="current_heat2_r">
+                            <input type="number" id="current_heat2_s">
+                            <input type="number" id="current_heat2_t">
+                        </div>
+
+                        <div>
+                            <label>Amperajes heater 3 (A):</label><br>
+                            <input type="number" id="current_heat3_r">
+                            <input type="number" id="current_heat3_s">
+                            <input type="number" id="current_heat3_t">
+                        </div>
+
+                        <div>
+                            <label>Amperajes humidificador 1 (A):</label><br>
+                            <input type="number" id="current_hum1" required class="special-box">
+                        </div> 
+
+                        <div>
+                            <label>Amperajes humidificador 2 (A):</label><br>
+                            <input type="number" id="current_hum2" required class="special-box">
+                        </div>  
+                        
+                        <div>
+                            <div><label>Voltaje de placa (V):</label></div>
+                            <div><label><input type="text" id="voltage_plate" required class="special-box"></label></div>
+                            <div><label>Voltaje de control (V):</label></div>
+                            <div><label><input type="text" id="voltage_of_control"></label></div>
+                            <label>Voltaje compresor HS o 1er compresor(V):</label><br>
+                            <input type="number" id="voltaje_hs_r" required class="special-box">
+                            <input type="number" id="voltaje_hs_s" required class="special-box">
+                            <input type="number" id="voltaje_hs_t" required class="special-box">
+                        </div>
+
+                        <div>
+                            <label>Voltaje compresor LS o 2do compresor(V):</label><br>
+                            <input type="number" id="voltaje_ls_r">
+                            <input type="number" id="voltaje_ls_s">
+                            <input type="number" id="voltaje_ls_t">
+                        </div>
+
+                        <div>
+                            <label>Presiones compresor HS o 1er compresor:*</label><br>
+                            <input type="number" id="pressures_hs_suction" required class="special-box">
+                            <input type="number" id="pressures_hs_disch" required class="special-box">
+                            <label>Psi</label><br>
+                        </div>
+
+                        <div>
+                            <label>Presiones compresor LS o 2do compresor:*</label><br>
+                            <input type="number" id="pressures_ls_suction" required class="special-box">
+                            <input type="number" id="pressures_ls_disch" required class="special-box">
+                            <label>Psi</label><br>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- 5 – Chequeo eléctrico -->
-            <hr>
-            <div class="section-header"><strong>5 – Chequeo eléctrico</strong></div>
-            <div class="grid checkboxes">
-                <label><input type="checkbox" id="main_switch_ok">Switch principal, hardware y cables correctos</label>
-                <label><input type="checkbox" id="highvolt_cables_ok">Cables de alto voltaje OK</label>
-                <label><input type="checkbox" id="switch_covers_ok">Cubiertas de presostatos</label>
-                <label><input type="checkbox" id="tighting_ok">Conexiones reapretadas</label>
-                <label><input type="checkbox" id="headfan_ok">Revisión de headfans</label>
-                <label><input type="checkbox" id="balance_ok">Carga balanceada</label>
-                <label><input type="checkbox" id="fuses_ok">Fusibles correctos</label>
-                <label><input type="checkbox" id="faseado_ok">Faseado correcto</label>
-                <label><input type="checkbox" id="crankcase_ok">Calentador de cárter</label>
-                <label><input type="checkbox" id="overloads_config_ok">Config Overloads OK</label>                
-                <label><input type="checkbox" id="grounded_ok">Tierra física</label>
-            </div>
-
-            <!-- 6 – Chequeo en refrigeración -->
-            <hr>
-            <div class="section-header"><strong>6 – Chequeo en refrigeración</strong></div>
-            <div class="grid checkboxes">
-                <label><input type="checkbox" id="fans_ok">Ventiladores OK</label>
-                <label><input type="checkbox" id="coils_ok">Serpentines OK</label>
-                <label><input type="checkbox" id="armafles_ok">Armaflex OK</label>
-                <label><input type="checkbox" id="inyection_ok">Válvula de inyección OK</label>
-                <label><input type="checkbox" id="level_oi_ok">Nivel de aceite correcto</label>
-                <label><input type="checkbox" id="sights_ok">Mirillas OK</label>
-                <label><input type="checkbox" id="acid_ok">Prueba de acidez</label>
-                <label><input type="checkbox" id="noleaks_ok">Sin fugas</label>                
-                <label><input type="checkbox" id="hilow_ok">Chequeo Hi/Low</label>
-                <label><input type="checkbox" id="lowoil_ok">Protección de aceite OK</label>
-                <label><input type="checkbox" id="rotalocks_ok">Capuchones de rotalocks</label>
-                <label><input type="checkbox" id="capillaries_ok">Capilares OK</label>
-                <label><input type="checkbox" id="frosty_ok">Escarche de succión</label>
-            </div>
-
-            <!-- 7 – Pruebas -->
-            <hr>
-            <div class="section-header"><strong>7 – Pruebas</strong></div>
-            <div class="grid">
-                <div><label>Temp. ambiente (°C):</label><input type="text" id="hum_from"></div>
-                <div><label>Punto máximo -10 (°C):</label><input type="text" id="heat_target"></div>
-                <label><input type="checkbox" id="heat_test_ok">Prueba de calentamiento (soak 30 min)</label>
-                <div><label>Punto máximo -10 (°C):</label><input type="text" id="temp_hig"></div>
-                <div><label>Punto máximo +10 (°C):</label><input type="text" id="temp_low"></div>
-                <label><input type="checkbox" id="cold_test_ok">Prueba de enfriamiento (soak 30 min)</label>
-                <div><label>Presión máxima:(Psi)</label><input type="text" id="pulldown"></div>
-                <label><input type="checkbox">Setear a valores propios para la humedad</label>                
-                <div><label>Humedad baja (20 %HR):</label><input type="text" id="hum_low"></div>
-                <div><label>Humedad alta (80 %HR):</label><input type="text" id="hum_hig"></div>
-                <label><input type="checkbox" id="hum_test_ok">Prueba de humedad (soak 30 min c/u)</label>
-            </div>
-<hr>
-<div class="section-header"><strong>8 – Salud del equipo</strong></div>
-<div class="custom-select">
-<div>
-    <label>¿Qué Semáforo de salud tiene el sistema de Refrigeración?</label><br> 
-    <div class="custom-select"> 
-        <select id="estado_ref" class="select-styled">
-            <option value="" disabled selected>Seleccione...</option>
-            <option value="rojo">Rojo</option>
-            <option value="amarillo">Amarillo</option>
-            <option value="verde">Verde</option>
+    </div>
+    <!-- 9 – Observaciones -->
+    <!-- Pregunta: ¿Cuándo se sugiere el siguiente servicio? -->
+    <br>
+    <hr>
+    <div class="section-header"><strong>5 – ¿Cuándo se sugiere el siguiente servicio?</strong></div>
+    <div class="grid">
+        <select id="resultado_servicio">
+            <option value="">Seleccione...</option>
+            <option value="3 meses"> En 3 meses</option>
+            <option value="6 meses">En 6 meses</option>
+            <option value="1 año">En 1 año</option>
         </select>
     </div>
-</div>
-
-<div>
-    <label>¿Qué Semáforo de salud tiene el sistema de Calefacción?</label><br> 
-    <div class="custom-select"> 
-        <select id="estado_heat" class="select-styled">
-            <option value="" disabled selected>Seleccione...</option>
-            <option value="rojo">Rojo</option>
-            <option value="amarillo">Amarillo</option>
-            <option value="verde">Verde</option>
-        </select>
     </div>
-</div>
+    <hr>
+    <div class="section-header"><strong>6 - Falla Reportada o diagnósticada</strong></div>
+    <div class="fullwidth"><textarea id="fail_work" required class="special-box"></textarea></label></div><br>
+    <div class="section-header"><label><strong>10 - Actividades realizadas:*<br></strong></label></div>
+    <div class="fullwidth"><textarea id="act_work" required class="special-box"></textarea></label></div><br>
 
-<div>
-    <label>¿Qué Semáforo de salud tiene el sistema Eléctrico?</label><br> 
-    <div class="custom-select"> 
-        <select id="estado_elec" class="select-styled">
-            <option value="" disabled selected>Seleccione...</option>
-            <option value="rojo">Rojo</option>
-            <option value="amarillo">Amarillo</option>
-            <option value="verde">Verde</option>
-        </select>
+
+    <!-- 10 – Observaciones -->
+    <hr>
+    <div class="section-header"><strong>7 – Notas del Cliente</strong></div>
+    <textarea id="notes_Cus" required class="special-box"></textarea>Observaciones del especialista
+
+    <!-- 11 – Firma de especialista -->
+    <hr>
+    <div class="section-header"><strong>8 – Firma de especialista</strong></div>
+    <div><label>Nombre de Especialista</label><input type="text" id="name_esp" required class="special-box"></div>
+    <button type="button" id="openSignatureEsp">Firma de Especialista</button>
+    <canvas id="signaturePreviewEsp" width="300" height="150" required class="special-box"></canvas>
+
+    <!-- 12 – Firma de cliente -->
+    <hr>
+    <div class="section-header"><strong>9 – Firma de cliente</strong></div>
+    <div><label>Nombre de Cliente</label><input type="text" id="name_cus" required class="special-box"></div>
+    <button type="button" id="openSignatureCus">Firma de Cliente</button>
+    <canvas id="signaturePreviewCus" width="300" height="150" required class="special-box"></canvas>
+    <hr>
+    <!-- Acciones -->
+    <div class="form-actions">
+        <button type="button" id="saveBtn">A) Guardar registro</button>
+        <!-- Botón para enviar correo -->
+        <button type="button" id="exportBtn">B) Descargar registro al móvil</button>
+        <button type="button" id="sendEmailBtn">C) Enviar reporte por correo</button>
     </div>
-</div>
+    <button type="button" id="deleteAllBtn" class="secondary">Borrar registros</button>
+    <button type="button" id="clearBtn" class="secondary">Limpiar formulario</button>
+
+
+    </form>
+
+    <!-- Tabla de registros -->
+    <div class="card">
+        <div class="section-header"><strong>Registros capturados</strong></div>
+        <div class="table-wrap">
+            <table id="recordsTable">
+                <thead>
+                    <tr id="tableHead"></tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
         </div>
-</div>
-<!-- 9 – Observaciones -->
-<!-- Pregunta: ¿Cuándo se sugiere el siguiente servicio? -->
-<br>
-<hr>
-<div class="section-header"><strong>9 – ¿Cuándo se sugiere el siguiente servicio?</strong></div>
-<div class="custom-select"> 
-  <select class="select-styled" id="resultado_servicio">
-    <option value="" disabled selected>Seleccione...</option>
-    <option value="3 meses">En 3 meses</option>
-    <option value="6 meses">En 6 meses</option>
-    <option value="1 año">En 1 año</option>
-  </select>
-</div>
-<hr>
-            <div class="section-header"><strong>10 - Falla Reportada o diagnósticada</strong></div>
-            <div class="fullwidth"><textarea id="fail_work"></textarea></label></div><br>
-<hr>
-            <div class="section-header"><label><strong>11 - Actividades realizadas:*<br></strong></label></div>
-            <div class="fullwidth"><textarea id="act_work" placeholder = "FAVOR DE APOYARSE CON LAS SIGUIENTES PREGUNTAS PARA QUE EL REPORTE QUEDE CON INFORMACIÓN MÁS COMPLETA:
-- ¿A qué hora hago presencia en sitio?
-- ¿Cuál fue la falla o alarma reportada?
-- ¿Recibí imágenes o información detallada sobre la falla reportada?
-- ¿Cómo se encuentra el equipo al iniciar mis actividades?
-- ¿Qué comentarios iniciales recibí del cliente sobre el equipo?
-- ¿Qué actividades efectué?
-- ¿Qué complicaciones tuve?
-- ¿Realicé anotaciones extra?
-- ¿A qué hora finalizo mis actividades?
-- ¿Cómo dejo el equipo?"></textarea></label></div><br>
-            <div class="section-header"><label><strong>Sugerencias para la solución:*<br></strong></label></div>
-                <div class="fullwidth"><textarea id="suggest_solution"></textarea></label></div><br>
-
-
-            <!-- 10 – Observaciones -->
-            <hr>
-            <div class="section-header"><strong>12 – Notas del Cliente</strong></div>
-            <textarea id="notes_Cus"></textarea>Observaciones del especialista
-
-            <!-- 11 – Firma de especialista -->
-            <hr>
-            <div class="section-header"><strong>13 – Firma de especialista</strong></div>
-            <div><label>Nombre de Especialista</label><input type="text" id="name_esp"></div>
-            <button type="button" id="openSignatureEsp">Firma de Especialista</button>
-            <canvas id="signaturePreviewEsp" width="300" height="150"></canvas>
-
-            <!-- 12 – Firma de cliente -->
-            <hr>
-            <div class="section-header"><strong>14 – Firma de cliente</strong></div>
-            <div><label>Nombre de Cliente</label><input type="text" id="name_cus"></div>
-            <button type="button" id="openSignatureCus">Firma de Cliente</button>
-            <canvas id="signaturePreviewCus" width="300" height="150" required></canvas>
-            <hr>
-            <!-- Acciones -->
-            <div class="form-actions">
-                <button type="button" id="saveBtn">A) Guardar registro</button>
-<!-- Botón para enviar correo -->
-                <button type="button" id="exportBtn">B) Descargar registro al móvil</button>                
-                <button type="button" id="sendEmailBtn">C) Enviar reporte por correo</button>
-            </div>
-                <button type="button" id="deleteAllBtn" class="secondary">Borrar registros</button>
-                <button type="button" id="clearBtn" class="secondary">Limpiar formulario</button>
-
-
-        </form>
-
-        <!-- Tabla de registros -->
-        <div class="card">
-            <div class="section-header"><strong>Registros capturados</strong></div>
-            <div class="table-wrap">
-                <table id="recordsTable">
-                    <thead>
-                        <tr id="tableHead"></tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
-        </div>
+    </div>
     </div>
 
     <!-- Modal de firma -->
@@ -373,8 +429,9 @@
         </div>
     </div>
 
-<!-- Tu archivo principal de JavaScript -->
-<script src="script.js"></script>
-</script>
+    <!-- Tu archivo principal de JavaScript -->
+    <script src="script.js"></script>
+    </script>
 </body>
+
 </html>
