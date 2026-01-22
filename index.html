@@ -349,11 +349,40 @@
                 </div>
             </div>
     </div>
-    <!-- 9 – Observaciones -->
+            <!-- 6 – Chequeo en refrigeración -->
+            <hr>
+            <div class="section-header"><strong>5 – Chequeo en refrigeración</strong></div>
+            <div class="grid checkboxes">
+                <label><input type="checkbox" id="fans_ok">Ventiladores OK</label>
+                <label><input type="checkbox" id="coils_ok">Serpentines OK</label>
+                <label><input type="checkbox" id="armafles_ok">Armaflex OK</label>
+                <label><input type="checkbox" id="injection_valve_ok">Válvula de inyección OK</label>
+                <label><input type="checkbox" id="level_oi_ok">Nivel de aceite correcto</label>
+                <label><input type="checkbox" id="protect_lowleveloil_ok">Bajo nivel de aceite Protección OK</label>
+                <label><input type="checkbox" id="sights_ok">Mirillas OK</label>
+                <label><input type="checkbox" id="acid_ok">Prueba de acidez</label>
+                <label><input type="checkbox" id="hilow_protect_ok">Chequeo Hi/Low</label>
+                <label><input type="checkbox" id="rotalocks_ok">Capuchones de rotalocks</label>
+                <label><input type="checkbox" id="capillaries_ok">Capilares OK</label>
+                <label><input type="checkbox" id="frosty_ok">Escarche de succión</label>
+                <label><input type="checkbox" id="channels_ok">Canales OK</label>
+                <label><input type="checkbox" id="overcool_overtemp_ok">Over temp y overcool Ok</label>
+                <label><input type="checkbox" id="controller_calibrated_ok">calibración OK</label>
+                <label><input type="checkbox" id="sensors_ok">Sensores OK</label>
+                <label><input type="checkbox" id="static_press_ok">Presión estática OK</label>
+                <label><input type="checkbox" id="temp_water_in_cond_ok">Temp. entrada a Cond. OK</label>
+                <label><input type="checkbox" id="temp_water_out_cond_ok">Temp. salida a Cond. OK</label>
+                <label><input type="checkbox" id="press_water_in_cond_ok">Press. entrada a Cond. OK</label>   
+                <label><input type="checkbox" id="press_water_out_cond_ok">Press. salida a Cond. OK</label>
+                <label><input type="checkbox" id="temp_disch_hs_ok">Temp. Descarga HS OK</label>
+                <label><input type="checkbox" id="temp_disch_ls_ok">Temp. Descarga LS OK</label>                
+                <label><input type="checkbox" id="bypass_cal_ok">Cal. Bypass OK</label>
+                <label><input type="checkbox" id="noleaks_ok">Chequeo de fugas OK</label>
+            </div>
     <!-- Pregunta: ¿Cuándo se sugiere el siguiente servicio? -->
     <br>
     <hr>
-    <div class="section-header"><strong>5 – ¿Cuándo se sugiere el siguiente servicio?</strong></div>
+    <div class="section-header"><strong>6 – ¿Cuándo se sugiere el siguiente servicio?</strong></div>
     <div class="grid">
         <select id="resultado_servicio">
             <option value="">Seleccione...</option>
@@ -364,7 +393,7 @@
     </div>
     </div>
     <hr>
-    <div class="section-header"><strong>6 - Falla Reportada o diagnósticada</strong></div>
+    <div class="section-header"><strong>7 - Falla Reportada o diagnósticada</strong></div>
     <div class="fullwidth"><textarea id="fail_work" required class="special-box"></textarea></label></div><br>
     <div class="section-header"><label><strong>10 - Actividades realizadas:*<br></strong></label></div>
     <div class="fullwidth"><textarea id="act_work" required class="special-box"></textarea></label></div><br>
@@ -372,19 +401,19 @@
 
     <!-- 10 – Observaciones -->
     <hr>
-    <div class="section-header"><strong>7 – Notas del Cliente</strong></div>
+    <div class="section-header"><strong>8 – Notas del Cliente</strong></div>
     <textarea id="notes_Cus" required class="special-box"></textarea>Observaciones del especialista
 
     <!-- 11 – Firma de especialista -->
     <hr>
-    <div class="section-header"><strong>8 – Firma de especialista</strong></div>
+    <div class="section-header"><strong>9 – Firma de especialista</strong></div>
     <div><label>Nombre de Especialista</label><input type="text" id="name_esp" required class="special-box"></div>
     <button type="button" id="openSignatureEsp">Firma de Especialista</button>
     <canvas id="signaturePreviewEsp" width="300" height="150" required class="special-box"></canvas>
 
     <!-- 12 – Firma de cliente -->
     <hr>
-    <div class="section-header"><strong>9 – Firma de cliente</strong></div>
+    <div class="section-header"><strong>10 – Firma de cliente</strong></div>
     <div><label>Nombre de Cliente</label><input type="text" id="name_cus" required class="special-box"></div>
     <button type="button" id="openSignatureCus">Firma de Cliente</button>
     <canvas id="signaturePreviewCus" width="300" height="150" required class="special-box"></canvas>
