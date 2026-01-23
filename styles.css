@@ -312,4 +312,14 @@ hr {
   border-color: #0056b3; /* Borde más oscuro al enfocarse */
   box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.25);
 }
-
+.special-box {
+    background-color: #fff1b8;  /* amarillo suave */
+    border-color: #ff9900;      /* borde naranja */
+}
+.chkSpecial input:checked + .chkCustom {
+  background-color: green;
+  background-image: url("data:image/svg+xml,<svg .../>");
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
