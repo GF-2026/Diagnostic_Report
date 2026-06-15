@@ -4,7 +4,7 @@
 // ======================
 let records = JSON.parse(localStorage.getItem('records') || '[]');
 let currentSignatureTarget = null; // 'esp' o 'cus'
-const enableDeleteButton = false;   // true = activo, false = desactivado
+const enableDeleteButton = true;   // true = activo, false = desactivado
 const storageKey = 'records';
 let estados = { 1: '', 2: '', 3: '' }; // 👈 estados de semáforos
 // ======================
