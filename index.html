@@ -17,27 +17,26 @@
                 });
             });
         }
-  window.onload = function () {
 window.onload = function () {
 
     // Crear ventana de aviso
     const aviso = document.createElement("div");
 
     aviso.innerHTML = `
-        <div class="aviso-migracion-contenido">
+        <div id="ventanaMigracion">
 
-            <div class="aviso-titulo">
+            <div id="tituloMigracion">
                 🚨 ¡IMPORTANTE! 🚨
             </div>
 
-            <div class="aviso-mensaje">
+            <div id="mensajeMigracion">
                 👋🔥 <strong>¡HOLA, COMPAÑERO ESPECIALISTA!</strong> 🔥👋<br><br>
 
                 🟡 <strong>¡ESTAMOS A PUNTO DE DAR UN GRAN PASO!</strong> 🚀<br><br>
 
                 💻🚀 <strong>MUY PRONTO MIGRAREMOS A LA NUEVA PLATAFORMA DE REPORTEO.</strong><br><br>
 
-                📌🛠️ TE PEDIMOS QUE HAGAS PRUEBAS EN LA NUEVA PLATAFORMA, 
+                📌🛠️ TE PEDIMOS QUE HAGAS PRUEBAS EN LA NUEVA PLATAFORMA,
                 Y TE FAMILIARICES CON SU FUNCIONAMIENTO.<br><br>
 
                 ⚠️📅 <strong>¡EL PLAN ES ARRANCAR A PARTIR DE SEPTIEMBRE!</strong> 📅⚠️<br><br>
@@ -54,25 +53,113 @@ window.onload = function () {
         </div>
     `;
 
-    // Estilo de la ventana
-    aviso.style.position = "fixed";
-    aviso.style.top = "0";
-    aviso.style.left = "0";
-    aviso.style.width = "100%";
-    aviso.style.height = "100%";
-    aviso.style.backgroundColor = "rgba(0, 0, 0, 0.65)";
-    aviso.style.display = "flex";
-    aviso.style.justifyContent = "center";
-    aviso.style.alignItems = "center";
-    aviso.style.zIndex = "99999";
-    aviso.style.padding = "20px";
-    aviso.style.boxSizing = "border-box";
+    // ==============================
+    // FONDO OSCURO DE LA PANTALLA
+    // ==============================
 
-    // Agregar al formulario
+    aviso.style.cssText = `
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(0, 0, 0, 0.75) !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 999999 !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    `;
+
+    // ==============================
+    // VENTANA PRINCIPAL
+    // ==============================
+
+    const ventana = aviso.querySelector("#ventanaMigracion");
+
+    ventana.style.cssText = `
+        background: #fff8dc !important;
+        background-color: #fff8dc !important;
+        color: #222 !important;
+        border: 4px solid #ffc107 !important;
+        border-radius: 18px !important;
+        width: 90% !important;
+        max-width: 650px !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+        padding: 25px !important;
+        text-align: center !important;
+        box-sizing: border-box !important;
+        box-shadow: 0 10px 35px rgba(0,0,0,0.6) !important;
+        opacity: 1 !important;
+    `;
+
+    // ==============================
+    // TÍTULO
+    // ==============================
+
+    const titulo = aviso.querySelector("#tituloMigracion");
+
+    titulo.style.cssText = `
+        background: #d90429 !important;
+        background-color: #d90429 !important;
+        color: #ffffff !important;
+        font-size: 26px !important;
+        font-weight: bold !important;
+        padding: 15px !important;
+        border-radius: 12px !important;
+        margin-bottom: 22px !important;
+        text-align: center !important;
+    `;
+
+    // ==============================
+    // MENSAJE
+    // ==============================
+
+    const mensaje = aviso.querySelector("#mensajeMigracion");
+
+    mensaje.style.cssText = `
+        background: #fff8dc !important;
+        background-color: #fff8dc !important;
+        color: #222222 !important;
+        font-size: 17px !important;
+        line-height: 1.5 !important;
+        font-weight: normal !important;
+        opacity: 1 !important;
+    `;
+
+    // ==============================
+    // BOTÓN
+    // ==============================
+
+    const boton = aviso.querySelector("#cerrarAvisoMigracion");
+
+    boton.style.cssText = `
+        margin-top: 25px !important;
+        padding: 13px 30px !important;
+        background: #0d6efd !important;
+        background-color: #0d6efd !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 10px !important;
+        font-size: 17px !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+    `;
+
+    // ==============================
+    // MOSTRAR AVISO
+    // ==============================
+
     document.body.appendChild(aviso);
 
-    // Cerrar aviso
-    document.getElementById("cerrarAvisoMigracion").onclick = function () {
+    // ==============================
+    // CERRAR AVISO
+    // ==============================
+
+    boton.onclick = function () {
         aviso.remove();
     };
 };
