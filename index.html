@@ -18,16 +18,64 @@
             });
         }
   window.onload = function () {
-    alert(
-"👋🔥 ¡HOLA, COMPAÑERO ESPECIALISTA! 🔥👋\n\n" +
-"🚨🟡 ¡IMPORTANTE, ESTAMOS A PUNTO DE DAR UN GRAN PASO! 🚨\n\n" +
-"💻🚀 MUY PRONTO MIGRAREMOS A LA NUEVA PLATAFORMA DE REPORTEO.\n\n" +
-"📌🛠️ TE PEDIMOS QUE HAGAS PRUEBAS EN LA NUEVA PLATAFORMA, Y TE FAMILIARICES CON SU FUNCIONAMIENTO.\n\n" +
-"⚠️📅 ¡EL PLAN ES ARRANCAR A PARTIR DE SEPTIEMBRE! 📅⚠️\n\n" +
-"💪🏆🚀 ¡GRACIAS POR TODO EL TRABAJO, COMPROMISO Y ESFUERZO QUE HACES CADA DÍA! 🙌\n\n" +
-"🚀🔥 ¡VAMOS JUNTOS POR ESTA NUEVA ETAPA! 🔥🚀"
-    );
-  };
+window.onload = function () {
+
+    // Crear ventana de aviso
+    const aviso = document.createElement("div");
+
+    aviso.innerHTML = `
+        <div class="aviso-migracion-contenido">
+
+            <div class="aviso-titulo">
+                🚨 ¡IMPORTANTE! 🚨
+            </div>
+
+            <div class="aviso-mensaje">
+                👋🔥 <strong>¡HOLA, COMPAÑERO ESPECIALISTA!</strong> 🔥👋<br><br>
+
+                🟡 <strong>¡ESTAMOS A PUNTO DE DAR UN GRAN PASO!</strong> 🚀<br><br>
+
+                💻🚀 <strong>MUY PRONTO MIGRAREMOS A LA NUEVA PLATAFORMA DE REPORTEO.</strong><br><br>
+
+                📌🛠️ TE PEDIMOS QUE HAGAS PRUEBAS EN LA NUEVA PLATAFORMA, 
+                Y TE FAMILIARICES CON SU FUNCIONAMIENTO.<br><br>
+
+                ⚠️📅 <strong>¡EL PLAN ES ARRANCAR A PARTIR DE SEPTIEMBRE!</strong> 📅⚠️<br><br>
+
+                💪🏆🚀 ¡GRACIAS POR TODO EL TRABAJO, COMPROMISO Y ESFUERZO QUE HACES CADA DÍA! 🙌<br><br>
+
+                🚀🔥 <strong>¡VAMOS JUNTOS POR ESTA NUEVA ETAPA!</strong> 🔥🚀
+            </div>
+
+            <button id="cerrarAvisoMigracion">
+                ✅ ¡ENTENDIDO!
+            </button>
+
+        </div>
+    `;
+
+    // Estilo de la ventana
+    aviso.style.position = "fixed";
+    aviso.style.top = "0";
+    aviso.style.left = "0";
+    aviso.style.width = "100%";
+    aviso.style.height = "100%";
+    aviso.style.backgroundColor = "rgba(0, 0, 0, 0.65)";
+    aviso.style.display = "flex";
+    aviso.style.justifyContent = "center";
+    aviso.style.alignItems = "center";
+    aviso.style.zIndex = "99999";
+    aviso.style.padding = "20px";
+    aviso.style.boxSizing = "border-box";
+
+    // Agregar al formulario
+    document.body.appendChild(aviso);
+
+    // Cerrar aviso
+    document.getElementById("cerrarAvisoMigracion").onclick = function () {
+        aviso.remove();
+    };
+};
 </script>
 </head>
 
